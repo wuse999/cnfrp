@@ -1,0 +1,40 @@
+# frps.toml — FRP 服务端配置示例
+# 官方文档: https://gofrp.org/zh-cn/docs/
+# 更多配置参考: https://github.com/fatedier/frp/blob/dev/conf/frps_full_example.toml
+
+# ─── 基础网络设置 ───────────────────────────────────────────────────────────
+bindAddr = "0.0.0.0"
+bindPort = 7000           # 客户端连接服务端的控制端口
+# kcpBindPort = 7000      # 可选：启用 KCP 协议（低延迟场景）
+
+# ─── HTTP/HTTPS 虚拟主机设置（域名穿透需要） ───────────────────────────────
+# vhostHTTPPort  = 80
+# vhostHTTPSPort = 443
+# vhostHTTPTimeout = 60   # 后端响应超时（秒）
+
+# ─── 身份验证 ───────────────────────────────────────────────────────────────
+auth.method = "token"
+# 请替换为随机生成的高强度字符串（建议 32 位以上）
+auth.token  = "REPLACE_WITH_YOUR_SECRET_TOKEN"
+
+# ─── TLS 加密（生产环境强烈推荐）──────────────────────────────────────────
+# transport.tls.force    = true     # 强制所有客户端使用 TLS
+# transport.tls.certFile = "./server.crt"
+# transport.tls.keyFile  = "./server.key"
+# transport.tls.caFile   = "./ca.crt"
+
+# ─── 连接池与限速 ───────────────────────────────────────────────────────────
+maxPoolCount = 10           # 每个代理的最大预连接数
+# maxPortsPerClient = 10    # 每个客户端最多允许的代理数（0 = 不限制）
+
+# ─── Web Dashboard 管理面板 ──────────────────────────────────────────────────
+webServer.addr     = "0.0.0.0"
+webServer.port     = 7500
+webServer.user     = "admin"
+# 请替换为强密码
+webServer.password = "REPLACE_WITH_DASHBOARD_PASSWORD"
+
+# ─── 日志 ────────────────────────────────────────────────────────────────────
+log.to       = "/var/log/frps.log"   # 或 "console" 输出到标准输出
+log.level    = "info"                # 可选: trace / debug / info / warn / error
+log.maxDays  = 7

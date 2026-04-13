@@ -1,0 +1,116 @@
+# frpc.toml — FRP 客户端配置示例
+# 官方文档: https://gofrp.org/zh-cn/docs/
+# 更多配置参考: https://github.com/fatedier/frp/blob/dev/conf/frpc_full_example.toml
+
+# ─── 服务端连接 ──────────────────────────────────────────────────────────────
+# 使用 FRPNAT.COM 公共节点时，将 serverAddr 改为对应节点域名/IP
+# 例如: node1.frpnat.com
+serverAddr = "node1.frpnat.com"
+serverPort = 7000
+
+# ─── 身份验证（与服务端保持一致）──────────────────────────────────────────
+auth.method = "token"
+auth.token  = "REPLACE_WITH_YOUR_SECRET_TOKEN"
+
+# ─── TLS（服务端开启 tls.force 时必须同步开启）────────────────────────────
+# transport.tls.enable = true
+
+# ─── 日志 ────────────────────────────────────────────────────────────────────
+log.to      = "/var/log/frpc.log"    # 或 "console"
+log.level   = "info"
+log.maxDays = 7
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 代理示例 — 按需取消注释并修改
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# ── 1. Web 应用 HTTP 穿透（工具分享 / 应用开发调试）────────────────────────
+[[proxies]]
+name           = "web-app"
+type           = "http"
+localIP        = "127.0.0.1"
+localPort      = 8080
+customDomains  = ["myapp.frpnat.com"]
+# 可选：启用压缩传输
+# transport.useCompression = true
+
+# ── 2. Web 应用 HTTPS 穿透（小程序开发、生产环境）──────────────────────────
+# [[proxies]]
+# name          = "web-app-https"
+# type          = "https"
+# localIP       = "127.0.0.1"
+# localPort     = 443
+# customDomains = ["secure.frpnat.com"]
+
+# ── 3. Jupyter Notebook（数据分析平台）───────────────────────────────────
+# [[proxies]]
+# name          = "jupyter"
+# type          = "http"
+# localIP       = "127.0.0.1"
+# localPort     = 8888
+# customDomains = ["jupyter.frpnat.com"]
+
+# ── 4. Apache Superset / Metabase（BI 看板）──────────────────────────────
+# [[proxies]]
+# name          = "bi-dashboard"
+# type          = "http"
+# localIP       = "127.0.0.1"
+# localPort     = 8088
+# customDomains = ["bi.frpnat.com"]
+
+# ── 5. Grafana（指标监控）────────────────────────────────────────────────
+# [[proxies]]
+# name          = "grafana"
+# type          = "http"
+# localIP       = "127.0.0.1"
+# localPort     = 3000
+# customDomains = ["grafana.frpnat.com"]
+
+# ── 6. SSH 远程登录（服务器部署 / 运维）──────────────────────────────────
+# [[proxies]]
+# name        = "ssh"
+# type        = "tcp"
+# localIP     = "127.0.0.1"
+# localPort   = 22
+# remotePort  = 6022
+
+# ── 7. MySQL 数据库远程访问（建议仅内部使用，勿公开）─────────────────────
+# [[proxies]]
+# name        = "mysql"
+# type        = "tcp"
+# localIP     = "127.0.0.1"
+# localPort   = 3306
+# remotePort  = 13306
+
+# ── 8. Redis 远程访问（建议仅内部使用，勿公开）──────────────────────────
+# [[proxies]]
+# name        = "redis"
+# type        = "tcp"
+# localIP     = "127.0.0.1"
+# localPort   = 6379
+# remotePort  = 16379
+
+# ── 9. Webhook 调试（微信/支付宝/GitHub 回调）────────────────────────────
+# [[proxies]]
+# name          = "webhook"
+# type          = "http"
+# localIP       = "127.0.0.1"
+# localPort     = 5000
+# customDomains = ["webhook.frpnat.com"]
+
+# ── 10. STCP 安全点对点隧道（敏感服务，不暴露公网端口）────────────────────
+# [[proxies]]
+# name       = "secret-ssh"
+# type       = "stcp"
+# secretKey  = "YOUR_STCP_SECRET_KEY"
+# localIP    = "127.0.0.1"
+# localPort  = 22
+
+# 对应的访问端配置（在访问方机器上配置）:
+# [[visitors]]
+# name        = "secret-ssh-visitor"
+# type        = "stcp"
+# serverName  = "secret-ssh"
+# secretKey   = "YOUR_STCP_SECRET_KEY"
+# bindAddr    = "127.0.0.1"
+# bindPort    = 6022
