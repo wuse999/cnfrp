@@ -1,7 +1,7 @@
 <template>
   <div class="string-list-editor">
     <template v-if="readonly">
-      <div v-if="!modelValue || modelValue.length === 0" class="list-empty">—</div>
+      <div v-if="!modelValue || modelValue.length === 0" class="list-empty">未配置</div>
       <div v-for="(item, index) in modelValue" :key="index" class="list-readonly-item">
         {{ item }}
       </div>
@@ -23,7 +23,7 @@
         <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M8 2a.5.5 0 01.5.5v5h5a.5.5 0 010 1h-5v5a.5.5 0 01-1 0v-5h-5a.5.5 0 010-1h5v-5A.5.5 0 018 2z" fill="currentColor"/>
         </svg>
-        Add
+        添加
       </button>
     </template>
   </div>
@@ -37,7 +37,7 @@ const props = withDefaults(
     readonly?: boolean
   }>(),
   {
-    placeholder: 'Enter value',
+    placeholder: '请输入值',
     readonly: false,
   },
 )

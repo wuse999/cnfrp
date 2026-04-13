@@ -1,17 +1,33 @@
 <template>
-  <ConfigSection title="Connection" :readonly="readonly">
+  <ConfigSection title="连接配置" :readonly="readonly">
     <div class="field-row two-col">
-      <ConfigField label="Server Name" type="text" v-model="form.serverName" prop="serverName"
-        placeholder="Name of the proxy to visit" :readonly="readonly" />
-      <ConfigField label="Server User" type="text" v-model="form.serverUser"
-        placeholder="Leave empty for same user" :readonly="readonly" />
+      <ConfigField
+        label="服务端名称"
+        type="text"
+        v-model="form.serverName"
+        prop="serverName"
+        placeholder="要访问的代理名称"
+        :readonly="readonly"
+      />
+      <ConfigField
+        label="服务端用户"
+        type="text"
+        v-model="form.serverUser"
+        placeholder="留空表示使用同一用户"
+        :readonly="readonly"
+      />
     </div>
-    <ConfigField label="Secret Key" type="password" v-model="form.secretKey"
-      placeholder="Shared secret" :readonly="readonly" />
+    <ConfigField
+      label="密钥"
+      type="password"
+      v-model="form.secretKey"
+      placeholder="共享密钥"
+      :readonly="readonly"
+    />
     <div class="field-row two-col">
-      <ConfigField label="Bind Address" type="text" v-model="form.bindAddr"
+      <ConfigField label="绑定地址" type="text" v-model="form.bindAddr"
         placeholder="127.0.0.1" :readonly="readonly" />
-      <ConfigField label="Bind Port" type="number" v-model="form.bindPort"
+      <ConfigField label="绑定端口" type="number" v-model="form.bindPort"
         :min="bindPortMin" :max="65535" prop="bindPort" :readonly="readonly" />
     </div>
   </ConfigSection>

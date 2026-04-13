@@ -1,12 +1,11 @@
 <template>
   <div class="proxy-detail-page">
-    <!-- Breadcrumb -->
     <nav class="breadcrumb">
       <a class="breadcrumb-link" @click="goBack">
         <el-icon><ArrowLeft /></el-icon>
       </a>
       <template v-if="fromClient">
-        <router-link to="/clients" class="breadcrumb-item">Clients</router-link>
+        <router-link to="/clients" class="breadcrumb-item">客户端</router-link>
         <span class="breadcrumb-separator">/</span>
         <router-link :to="`/clients/${fromClient}`" class="breadcrumb-item">{{
           fromClient
@@ -14,7 +13,7 @@
         <span class="breadcrumb-separator">/</span>
       </template>
       <template v-else>
-        <router-link to="/proxies" class="breadcrumb-item">Proxies</router-link>
+        <router-link to="/proxies" class="breadcrumb-item">代理</router-link>
         <span class="breadcrumb-separator">/</span>
         <router-link
           v-if="proxy?.clientID"
@@ -30,7 +29,6 @@
 
     <div v-loading="loading" class="detail-content">
       <template v-if="proxy">
-        <!-- Header Section -->
         <div class="header-section">
           <div class="header-main">
             <div
@@ -44,7 +42,7 @@
                 <h1 class="proxy-name">{{ proxy.name }}</h1>
                 <span class="type-tag">{{ proxy.type.toUpperCase() }}</span>
                 <span class="status-badge" :class="proxy.status">
-                  {{ proxy.status }}
+                  {{ formatStatus(proxy.status) }}
                 </span>
               </div>
               <div class="header-meta">
@@ -61,51 +59,52 @@
                   }}</span>
                 </router-link>
                 <span v-if="proxy.lastStartTime" class="meta-text">
-                  <span class="meta-sep">·</span>
-                  Last Started {{ proxy.lastStartTime }}
+                  | 最近启动 {{ proxy.lastStartTime }}
                 </span>
                 <span v-if="proxy.lastCloseTime" class="meta-text">
-                  <span class="meta-sep">·</span>
-                  Last Closed {{ proxy.lastCloseTime }}
+                  | 最近关闭 {{ proxy.lastCloseTime }}
                 </span>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Stats Bar -->
         <div class="stats-bar">
           <div v-if="proxy.port" class="stats-item">
-            <span class="stats-label">Port</span>
+            <span class="stats-label">端口</span>
             <span class="stats-value">{{ proxy.port }}</span>
           </div>
           <div class="stats-item">
-            <span class="stats-label">Connections</span>
+            <span class="stats-label">连接数</span>
             <span class="stats-value">{{ proxy.conns }}</span>
           </div>
           <div class="stats-item">
-            <span class="stats-label">Traffic</span>
-            <span class="stats-value">↓ {{ formatTrafficValue(proxy.trafficIn) }} <small>{{ formatTrafficUnit(proxy.trafficIn) }}</small> / ↑ {{ formatTrafficValue(proxy.trafficOut) }} <small>{{ formatTrafficUnit(proxy.trafficOut) }}</small></span>
+            <span class="stats-label">流量</span>
+            <span class="stats-value">
+              入 {{ formatTrafficValue(proxy.trafficIn) }}
+              <small>{{ formatTrafficUnit(proxy.trafficIn) }}</small>
+              /
+              出 {{ formatTrafficValue(proxy.trafficOut) }}
+              <small>{{ formatTrafficUnit(proxy.trafficOut) }}</small>
+            </span>
           </div>
         </div>
 
-        <!-- Configuration Section -->
         <div class="config-section">
           <div class="config-section-header">
             <el-icon><Setting /></el-icon>
-            <h2>Configuration</h2>
+            <h2>配置</h2>
           </div>
 
-          <!-- Config Cards Grid -->
           <div class="config-grid">
             <div class="config-item-card">
               <div class="config-item-icon encryption">
                 <el-icon><Lock /></el-icon>
               </div>
               <div class="config-item-content">
-                <span class="config-item-label">Encryption</span>
+                <span class="config-item-label">加密</span>
                 <span class="config-item-value">{{
-                  proxy.encryption ? 'Enabled' : 'Disabled'
+                  proxy.encryption ? '已启用' : '已禁用'
                 }}</span>
               </div>
             </div>
@@ -115,9 +114,9 @@
                 <el-icon><Lightning /></el-icon>
               </div>
               <div class="config-item-content">
-                <span class="config-item-label">Compression</span>
+                <span class="config-item-label">压缩</span>
                 <span class="config-item-value">{{
-                  proxy.compression ? 'Enabled' : 'Disabled'
+                  proxy.compression ? '已启用' : '已禁用'
                 }}</span>
               </div>
             </div>
@@ -127,7 +126,7 @@
                 <el-icon><Link /></el-icon>
               </div>
               <div class="config-item-content">
-                <span class="config-item-label">Custom Domains</span>
+                <span class="config-item-label">自定义域名</span>
                 <span class="config-item-value">{{ proxy.customDomains }}</span>
               </div>
             </div>
@@ -137,7 +136,7 @@
                 <el-icon><Link /></el-icon>
               </div>
               <div class="config-item-content">
-                <span class="config-item-label">Subdomain</span>
+                <span class="config-item-label">子域名</span>
                 <span class="config-item-value">{{ proxy.subdomain }}</span>
               </div>
             </div>
@@ -147,7 +146,7 @@
                 <el-icon><Location /></el-icon>
               </div>
               <div class="config-item-content">
-                <span class="config-item-label">Locations</span>
+                <span class="config-item-label">路由路径</span>
                 <span class="config-item-value">{{ proxy.locations }}</span>
               </div>
             </div>
@@ -157,7 +156,7 @@
                 <el-icon><Tickets /></el-icon>
               </div>
               <div class="config-item-content">
-                <span class="config-item-label">Host Rewrite</span>
+                <span class="config-item-label">Host 重写</span>
                 <span class="config-item-value">{{
                   proxy.hostHeaderRewrite
                 }}</span>
@@ -169,7 +168,7 @@
                 <el-icon><Cpu /></el-icon>
               </div>
               <div class="config-item-content">
-                <span class="config-item-label">Multiplexer</span>
+                <span class="config-item-label">复用器</span>
                 <span class="config-item-value">{{ proxy.multiplexer }}</span>
               </div>
             </div>
@@ -179,7 +178,7 @@
                 <el-icon><Connection /></el-icon>
               </div>
               <div class="config-item-content">
-                <span class="config-item-label">Route By HTTP User</span>
+                <span class="config-item-label">按 HTTP 用户路由</span>
                 <span class="config-item-value">{{
                   proxy.routeByHTTPUser
                 }}</span>
@@ -187,7 +186,6 @@
             </div>
           </div>
 
-          <!-- Annotations -->
           <template v-if="proxy.annotations && proxy.annotations.size > 0">
             <div class="annotations-section">
               <div
@@ -201,10 +199,9 @@
           </template>
         </div>
 
-        <!-- Traffic Card -->
         <div class="traffic-card">
           <div class="traffic-header">
-            <h2>Traffic Statistics</h2>
+            <h2>流量统计</h2>
           </div>
           <div class="traffic-body">
             <Traffic :proxy-name="proxyName" />
@@ -213,10 +210,10 @@
       </template>
 
       <div v-else-if="!loading" class="not-found">
-        <h2>Proxy not found</h2>
-        <p>The proxy doesn't exist or has been removed.</p>
+        <h2>未找到代理</h2>
+        <p>该代理不存在，或已被移除。</p>
         <router-link to="/proxies">
-          <el-button type="primary">Back to Proxies</el-button>
+          <el-button type="primary">返回代理列表</el-button>
         </router-link>
       </div>
     </div>
@@ -334,6 +331,17 @@ const proxyIconConfig = computed(() => {
   )
 })
 
+const formatStatus = (status: string) => {
+  switch (status) {
+    case 'online':
+      return '在线'
+    case 'offline':
+      return '离线'
+    default:
+      return status
+  }
+}
+
 const formatTrafficValue = (bytes: number): string => {
   if (bytes === 0) return '0'
   const k = 1024
@@ -396,7 +404,7 @@ const fetchProxy = async () => {
       proxy.value.type = type
     }
   } catch (error: any) {
-    ElMessage.error('Failed to fetch proxy: ' + error.message)
+    ElMessage.error('获取代理失败：' + error.message)
   } finally {
     loading.value = false
   }
@@ -411,7 +419,6 @@ onMounted(() => {
 .proxy-detail-page {
 }
 
-/* Breadcrumb */
 .breadcrumb {
   display: flex;
   align-items: center;
@@ -452,7 +459,6 @@ onMounted(() => {
   font-weight: 500;
 }
 
-/* Header Section */
 .header-section {
   margin-bottom: 24px;
 }
@@ -512,7 +518,6 @@ onMounted(() => {
   border-radius: 6px;
   font-size: 13px;
   font-weight: 500;
-  text-transform: capitalize;
 }
 
 .status-badge.online {
@@ -534,7 +539,7 @@ html.dark .status-badge.online {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 4px;
+  gap: 8px;
   font-size: 13px;
   color: var(--text-secondary);
 }
@@ -556,11 +561,6 @@ html.dark .status-badge.online {
   color: var(--text-muted);
 }
 
-.meta-sep {
-  margin: 0 4px;
-}
-
-/* Stats Bar */
 .stats-bar {
   display: flex;
   background: var(--el-bg-color);
@@ -598,8 +598,6 @@ html.dark .status-badge.online {
   color: var(--text-secondary);
 }
 
-
-/* Card Base */
 .traffic-card {
   background: var(--el-bg-color);
   border: 1px solid var(--header-border);
@@ -607,7 +605,6 @@ html.dark .status-badge.online {
   margin-bottom: 16px;
 }
 
-/* Config Section */
 .config-section {
   margin-bottom: 24px;
 }
@@ -766,12 +763,10 @@ html.dark .config-item-icon.route {
   margin: 0;
 }
 
-/* Traffic Card */
 .traffic-body {
   padding: 20px;
 }
 
-/* Not Found */
 .not-found {
   text-align: center;
   padding: 60px 20px;
@@ -790,7 +785,6 @@ html.dark .config-item-icon.route {
   margin: 0 0 20px;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .config-grid {
     grid-template-columns: 1fr;
@@ -804,7 +798,7 @@ html.dark .config-item-icon.route {
     flex: 1 1 40%;
   }
 
-  .stats-item:nth-child(n+3) {
+  .stats-item:nth-child(n + 3) {
     border-top: 1px solid var(--header-border);
   }
 }
@@ -814,6 +808,5 @@ html.dark .config-item-icon.route {
     flex-direction: column;
     gap: 16px;
   }
-
 }
 </style>

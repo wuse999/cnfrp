@@ -7,12 +7,12 @@
           <span class="type-tag">{{ proxy.type.toUpperCase() }}</span>
           <span class="status-pill" :class="statusClass">
             <span class="status-dot"></span>
-            {{ proxy.status }}
+            {{ displayStatus }}
           </span>
         </div>
         <div class="card-address">
           <template v-if="proxy.remote_addr && localDisplay">
-            {{ proxy.remote_addr }} → {{ localDisplay }}
+            {{ proxy.remote_addr }} -> {{ localDisplay }}
           </template>
           <template v-else-if="proxy.remote_addr">{{ proxy.remote_addr }}</template>
           <template v-else-if="localDisplay">{{ localDisplay }}</template>
@@ -29,19 +29,19 @@
             </template>
             <PopoverMenuItem v-if="proxy.status === 'disabled'" @click="$emit('toggle', proxy, true)">
               <el-icon><Open /></el-icon>
-              Enable
+              启用
             </PopoverMenuItem>
             <PopoverMenuItem v-else @click="$emit('toggle', proxy, false)">
               <el-icon><TurnOff /></el-icon>
-              Disable
+              禁用
             </PopoverMenuItem>
             <PopoverMenuItem @click="$emit('edit', proxy)">
               <el-icon><Edit /></el-icon>
-              Edit
+              编辑
             </PopoverMenuItem>
             <PopoverMenuItem danger @click="$emit('delete', proxy)">
               <el-icon><Delete /></el-icon>
-              Delete
+              删除
             </PopoverMenuItem>
           </PopoverMenu>
         </div>
@@ -79,12 +79,25 @@ defineEmits<{
 }>()
 
 const displaySource = computed(() => {
-  return props.proxy.source === 'store' ? 'store' : 'config'
+  return props.proxy.source === 'store' ? 'Store' : '配置文件'
 })
 
 const localDisplay = computed(() => {
   if (props.proxy.plugin) return `plugin:${props.proxy.plugin}`
   return props.proxy.local_addr || ''
+})
+
+const displayStatus = computed(() => {
+  switch (props.proxy.status) {
+    case 'running':
+      return '运行中'
+    case 'error':
+      return '异常'
+    case 'disabled':
+      return '已禁用'
+    default:
+      return '等待中'
+  }
 })
 
 const statusClass = computed(() => {
@@ -164,8 +177,6 @@ const statusClass = computed(() => {
   gap: $spacing-sm;
 }
 
-
-
 .card-right {
   display: flex;
   align-items: center;
@@ -178,15 +189,12 @@ const statusClass = computed(() => {
   color: $color-text-light;
 }
 
-
 .status-dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
   background: currentColor;
 }
-
-
 
 @include mobile {
   .card-main {

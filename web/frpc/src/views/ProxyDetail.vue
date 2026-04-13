@@ -1,9 +1,8 @@
 <template>
   <div class="proxy-detail-page">
-    <!-- Fixed Header -->
     <div class="detail-top">
       <nav class="breadcrumb">
-        <router-link :to="isStore ? '/proxies?tab=store' : '/proxies'" class="breadcrumb-link">Proxies</router-link>
+        <router-link :to="isStore ? '/proxies?tab=store' : '/proxies'" class="breadcrumb-link">代理</router-link>
         <span class="breadcrumb-sep">&rsaquo;</span>
         <span class="breadcrumb-current">{{ proxyName }}</span>
       </nav>
@@ -15,43 +14,39 @@
               <h2 class="detail-title">{{ proxy.name }}</h2>
               <span class="status-pill" :class="statusClass">
                 <span class="status-dot"></span>
-                {{ proxy.status }}
+                {{ displayStatus }}
               </span>
             </div>
             <p class="header-subtitle">
-              Source: {{ displaySource }} &middot; Type:
-              {{ proxy.type.toUpperCase() }}
+              来源：{{ displaySource }} · 类型：{{ proxy.type.toUpperCase() }}
             </p>
           </div>
           <div v-if="isStore" class="header-actions">
             <ActionButton variant="outline" size="small" @click="handleEdit">
-              Edit
+              编辑
             </ActionButton>
           </div>
         </div>
       </template>
     </div>
 
-    <!-- Scrollable Content -->
     <div v-if="notFound" class="not-found">
-      <p class="empty-text">Proxy not found</p>
-      <p class="empty-hint">The proxy "{{ proxyName }}" does not exist.</p>
+      <p class="empty-text">未找到代理</p>
+      <p class="empty-hint">代理“{{ proxyName }}”不存在。</p>
       <ActionButton variant="outline" @click="router.push('/proxies')">
-        Back to Proxies
+        返回代理列表
       </ActionButton>
     </div>
 
     <div v-else-if="proxy" v-loading="loading" class="detail-content">
-      <!-- Error Banner -->
       <div v-if="proxy.err" class="error-banner">
         <el-icon class="error-icon"><Warning /></el-icon>
         <div>
-          <div class="error-title">Connection Error</div>
+          <div class="error-title">连接异常</div>
           <div class="error-message">{{ proxy.err }}</div>
         </div>
       </div>
 
-      <!-- Config Sections -->
       <ProxyFormLayout
         v-if="formData"
         :model-value="formData"
@@ -60,7 +55,6 @@
     </div>
 
     <div v-else v-loading="loading" class="loading-area"></div>
-
   </div>
 </template>
 
@@ -89,31 +83,27 @@ const isStore = ref(false)
 
 onMounted(async () => {
   try {
-    // Try status API first
     await proxyStore.fetchStatus()
     const found = proxyStore.proxies.find((p) => p.name === proxyName)
 
-    // Try config API (works for any source)
     let configDef: ProxyDefinition | null = null
     try {
       configDef = await getProxyConfig(proxyName)
       proxyConfig.value = configDef
     } catch {
-      // Config not available
+      // 配置不可用时保持静默，后续按状态数据或未找到处理。
     }
 
-    // Check if proxy is from the store (for Edit/Delete buttons)
     try {
       await getStoreProxy(proxyName)
       isStore.value = true
     } catch {
-      // Not a store proxy
+      // 非 Store 代理时不显示编辑入口。
     }
 
     if (found) {
       proxy.value = found
     } else if (configDef) {
-      // Proxy not in status (e.g. disabled), build from config definition
       const block = (configDef as any)[configDef.type]
       const localIP = block?.localIP || '127.0.0.1'
       const localPort = block?.localPort
@@ -131,15 +121,28 @@ onMounted(async () => {
       notFound.value = true
     }
   } catch (err: any) {
-    ElMessage.error('Failed to load proxy: ' + err.message)
+    ElMessage.error('加载代理失败：' + err.message)
   } finally {
     loading.value = false
   }
 })
 
 const displaySource = computed(() =>
-  isStore.value ? 'store' : 'config',
+  isStore.value ? 'Store' : '配置文件',
 )
+
+const displayStatus = computed(() => {
+  switch (proxy.value?.status) {
+    case 'running':
+      return '运行中'
+    case 'error':
+      return '异常'
+    case 'disabled':
+      return '已禁用'
+    default:
+      return '等待中'
+  }
+})
 
 const statusClass = computed(() => {
   const s = proxy.value?.status
@@ -157,7 +160,6 @@ const formData = computed((): ProxyFormData | null => {
 const handleEdit = () => {
   router.push('/proxies/' + encodeURIComponent(proxyName) + '/edit')
 }
-
 </script>
 
 <style scoped lang="scss">

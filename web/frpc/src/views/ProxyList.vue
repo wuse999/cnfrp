@@ -4,13 +4,13 @@
     <div class="page-top">
       <!-- Header -->
       <div class="page-header">
-        <h2 class="page-title">Proxies</h2>
+        <h2 class="page-title">代理</h2>
       </div>
 
       <!-- Tabs -->
       <div class="tab-bar">
         <div class="tab-buttons">
-          <button class="tab-btn" :class="{ active: activeTab === 'status' }" @click="switchTab('status')">Status</button>
+          <button class="tab-btn" :class="{ active: activeTab === 'status' }" @click="switchTab('status')">状态</button>
           <button class="tab-btn" :class="{ active: activeTab === 'store' }" @click="switchTab('store')">Store</button>
         </div>
         <div class="tab-actions">
@@ -18,7 +18,7 @@
             <el-icon><Refresh /></el-icon>
           </ActionButton>
           <ActionButton v-if="activeTab === 'store' && proxyStore.storeEnabled" size="small" @click="handleCreate">
-            + New Proxy
+            + 新建代理
           </ActionButton>
         </div>
       </div>
@@ -27,21 +27,21 @@
       <template v-if="activeTab === 'status'">
         <StatusPills v-if="!isMobile" :items="proxyStore.proxies" v-model="statusFilter" />
         <div class="filter-bar">
-          <el-input v-model="searchText" placeholder="Search..." clearable class="search-input">
+          <el-input v-model="searchText" placeholder="搜索代理..." clearable class="search-input">
             <template #prefix><el-icon><Search /></el-icon></template>
           </el-input>
-          <FilterDropdown v-model="sourceFilter" label="Source" :options="sourceOptions" :min-width="140" :is-mobile="isMobile" />
-          <FilterDropdown v-model="typeFilter" label="Type" :options="typeOptions" :min-width="140" :is-mobile="isMobile" />
+          <FilterDropdown v-model="sourceFilter" label="来源" :options="sourceOptions" :min-width="140" :is-mobile="isMobile" />
+          <FilterDropdown v-model="typeFilter" label="类型" :options="typeOptions" :min-width="140" :is-mobile="isMobile" />
         </div>
       </template>
 
       <!-- Store Tab Filters -->
       <template v-if="activeTab === 'store' && proxyStore.storeEnabled">
         <div class="filter-bar">
-          <el-input v-model="storeSearch" placeholder="Search..." clearable class="search-input">
+          <el-input v-model="storeSearch" placeholder="搜索 Store 代理..." clearable class="search-input">
             <template #prefix><el-icon><Search /></el-icon></template>
           </el-input>
-          <FilterDropdown v-model="storeTypeFilter" label="Type" :options="storeTypeOptions" :min-width="140" :is-mobile="isMobile" />
+          <FilterDropdown v-model="storeTypeFilter" label="类型" :options="storeTypeOptions" :min-width="140" :is-mobile="isMobile" />
         </div>
       </template>
     </div>
@@ -60,15 +60,15 @@
           />
         </div>
         <div v-else-if="!proxyStore.loading" class="empty-state">
-          <p class="empty-text">No proxies found</p>
-          <p class="empty-hint">Proxies will appear here once configured and connected.</p>
+          <p class="empty-text">暂无代理</p>
+          <p class="empty-hint">完成配置并成功连接后，代理会显示在这里。</p>
         </div>
       </div>
 
       <!-- Store Tab List -->
       <div v-if="activeTab === 'store'" v-loading="proxyStore.storeLoading">
         <div v-if="!proxyStore.storeEnabled" class="store-disabled">
-          <p>Store is not enabled. Add the following to your frpc configuration:</p>
+          <p>Store 尚未启用。请在 `frpc` 配置中加入以下内容：</p>
           <pre class="config-hint">[store]
 path = "./frpc_store.json"</pre>
         </div>
@@ -86,8 +86,8 @@ path = "./frpc_store.json"</pre>
             />
           </div>
           <div v-else class="empty-state">
-            <p class="empty-text">No store proxies</p>
-            <p class="empty-hint">Click "New Proxy" to create one.</p>
+            <p class="empty-text">Store 中暂无代理</p>
+            <p class="empty-hint">点击“新建代理”即可添加一条代理配置。</p>
           </div>
         </template>
       </div>
@@ -95,9 +95,9 @@ path = "./frpc_store.json"</pre>
 
     <ConfirmDialog
       v-model="deleteDialog.visible"
-      title="Delete Proxy"
+      title="删除代理"
       :message="deleteDialog.message"
-      confirm-text="Delete"
+      confirm-text="删除"
       danger
       :loading="deleteDialog.loading"
       :is-mobile="isMobile"
@@ -147,7 +147,7 @@ const storeTypeFilter = ref('')
 // Delete dialog
 const deleteDialog = reactive({
   visible: false,
-  title: 'Delete Proxy',
+  title: '删除代理',
   message: '',
   loading: false,
   name: '',
@@ -168,7 +168,10 @@ const sourceOptions = computed(() => {
   })
   return Array.from(sources)
     .sort()
-    .map((s) => ({ label: s, value: s }))
+    .map((s) => ({
+      label: s === 'store' ? 'Store' : '配置文件',
+      value: s,
+    }))
 })
 
 const PROXY_TYPE_ORDER = ['tcp', 'udp', 'http', 'https', 'tcpmux', 'stcp', 'sudp', 'xtcp']
@@ -243,7 +246,7 @@ const filteredStoreProxies = computed(() => {
 // Data fetching
 const refreshData = () => {
   proxyStore.fetchStatus().catch((err: any) => {
-    ElMessage.error('Failed to get status: ' + err.message)
+    ElMessage.error('获取代理状态失败：' + err.message)
   })
   proxyStore.fetchStoreProxies()
 }
@@ -264,15 +267,15 @@ const handleEdit = (proxy: ProxyStatus) => {
 const handleToggleProxy = async (proxy: ProxyStatus, enabled: boolean) => {
   try {
     await proxyStore.toggleProxy(proxy.name, enabled)
-    ElMessage.success(enabled ? 'Proxy enabled' : 'Proxy disabled')
+    ElMessage.success(enabled ? '代理已启用' : '代理已禁用')
   } catch (err: any) {
-    ElMessage.error('Operation failed: ' + (err.message || 'Unknown error'))
+    ElMessage.error('操作失败：' + (err.message || '未知错误'))
   }
 }
 
 const handleDeleteProxy = (name: string) => {
   deleteDialog.name = name
-  deleteDialog.message = `Are you sure you want to delete "${name}"? This action cannot be undone.`
+  deleteDialog.message = `确认删除代理“${name}”吗？此操作无法撤销。`
   deleteDialog.visible = true
 }
 
@@ -280,11 +283,11 @@ const doDelete = async () => {
   deleteDialog.loading = true
   try {
     await proxyStore.deleteProxy(deleteDialog.name)
-    ElMessage.success('Proxy deleted')
+    ElMessage.success('代理已删除')
     deleteDialog.visible = false
     proxyStore.fetchStatus()
   } catch (err: any) {
-    ElMessage.error('Delete failed: ' + (err.message || 'Unknown error'))
+    ElMessage.error('删除失败：' + (err.message || '未知错误'))
   } finally {
     deleteDialog.loading = false
   }

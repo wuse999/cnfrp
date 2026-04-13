@@ -1,16 +1,16 @@
 <template>
-  <ConfigSection title="Authentication" :readonly="readonly">
+  <ConfigSection title="认证" :readonly="readonly">
     <template v-if="['http', 'tcpmux'].includes(form.type)">
       <div class="field-row three-col">
-        <ConfigField label="HTTP User" type="text" v-model="form.httpUser" :readonly="readonly" />
-        <ConfigField label="HTTP Password" type="password" v-model="form.httpPassword" :readonly="readonly" />
-        <ConfigField label="Route By HTTP User" type="text" v-model="form.routeByHTTPUser" :readonly="readonly" />
+        <ConfigField label="HTTP 用户" type="text" v-model="form.httpUser" :readonly="readonly" />
+        <ConfigField label="HTTP 密码" type="password" v-model="form.httpPassword" :readonly="readonly" />
+        <ConfigField label="按 HTTP 用户路由" type="text" v-model="form.routeByHTTPUser" :readonly="readonly" />
       </div>
     </template>
     <template v-if="['stcp', 'sudp', 'xtcp'].includes(form.type)">
       <div class="field-row two-col">
-        <ConfigField label="Secret Key" type="password" v-model="form.secretKey" prop="secretKey" :readonly="readonly" />
-        <ConfigField label="Allow Users" type="tags" v-model="form.allowUsers" placeholder="username" :readonly="readonly" />
+        <ConfigField label="密钥" type="password" v-model="form.secretKey" prop="secretKey" :readonly="readonly" />
+        <ConfigField label="允许用户" type="tags" v-model="form.allowUsers" placeholder="username" :readonly="readonly" />
       </div>
     </template>
   </ConfigSection>

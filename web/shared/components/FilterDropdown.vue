@@ -8,7 +8,11 @@
     @update:model-value="$emit('update:modelValue', $event as string)"
   >
     <template #trigger>
-      <button class="filter-trigger" :class="{ 'has-value': modelValue }" :style="minWidth && !isMobile ? { minWidth: minWidth + 'px' } : undefined">
+      <button
+        class="filter-trigger"
+        :class="{ 'has-value': modelValue }"
+        :style="minWidth && !isMobile ? { minWidth: minWidth + 'px' } : undefined"
+      >
         <span class="filter-label">{{ label }}:</span>
         <span class="filter-value">{{ displayLabel }}</span>
         <el-icon class="filter-arrow"><ArrowDown /></el-icon>
@@ -42,7 +46,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  allLabel: 'All',
+  allLabel: '全部',
   width: 150,
 })
 

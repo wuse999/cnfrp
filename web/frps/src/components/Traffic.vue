@@ -8,7 +8,6 @@
       </div>
 
       <div class="bars-area">
-        <!-- Grid Lines -->
         <div class="grid-line top"></div>
         <div class="grid-line middle"></div>
         <div class="grid-line bottom"></div>
@@ -16,7 +15,7 @@
         <div v-for="(item, index) in chartData" :key="index" class="day-column">
           <div class="bars-group">
             <el-tooltip
-              :content="`In: ${formatFileSize(item.in)}`"
+              :content="`入站：${formatFileSize(item.in)}`"
               placement="top"
             >
               <div
@@ -25,7 +24,7 @@
               ></div>
             </el-tooltip>
             <el-tooltip
-              :content="`Out: ${formatFileSize(item.out)}`"
+              :content="`出站：${formatFileSize(item.out)}`"
               placement="top"
             >
               <div
@@ -39,13 +38,12 @@
       </div>
     </div>
 
-    <!-- Legend -->
     <div v-if="!loading && chartData.length > 0" class="legend">
-      <div class="legend-item"><span class="dot in"></span> Traffic In</div>
-      <div class="legend-item"><span class="dot out"></span> Traffic Out</div>
+      <div class="legend-item"><span class="dot in"></span> 入站流量</div>
+      <div class="legend-item"><span class="dot out"></span> 出站流量</div>
     </div>
 
-    <el-empty v-else-if="!loading" description="No traffic data" />
+    <el-empty v-else-if="!loading" description="暂无流量数据" />
   </div>
 </template>
 
@@ -72,19 +70,15 @@ const chartData = ref<
 const maxVal = ref(0)
 
 const processData = (trafficIn: number[], trafficOut: number[]) => {
-  // Ensure we have arrays and reverse them (server returns newest first)
   const inArr = [...(trafficIn || [])].reverse()
   const outArr = [...(trafficOut || [])].reverse()
 
-  // Pad with zeros if less than 7 days
   while (inArr.length < 7) inArr.unshift(0)
   while (outArr.length < 7) outArr.unshift(0)
 
-  // Slice to last 7 entries just in case
   const finalIn = inArr.slice(-7)
   const finalOut = outArr.slice(-7)
 
-  // Calculate dates (last 7 days ending today)
   const dates: string[] = []
   const d = new Date()
   d.setDate(d.getDate() - 6)
@@ -94,12 +88,10 @@ const processData = (trafficIn: number[], trafficOut: number[]) => {
     d.setDate(d.getDate() + 1)
   }
 
-  // Find max value for scaling
   const maxIn = Math.max(...finalIn)
   const maxOut = Math.max(...finalOut)
-  maxVal.value = Math.max(maxIn, maxOut, 100) // Minimum scale 100 bytes
+  maxVal.value = Math.max(maxIn, maxOut, 100)
 
-  // Build chart data
   chartData.value = dates.map((date, i) => ({
     date,
     in: finalIn[i],
@@ -118,7 +110,7 @@ const fetchData = () => {
     .catch((err) => {
       ElMessage({
         showClose: true,
-        message: 'Get traffic info failed! ' + err,
+        message: '获取流量信息失败：' + err,
         type: 'warning',
       })
     })
@@ -156,8 +148,8 @@ onMounted(() => {
   text-align: right;
   font-size: 12px;
   color: #909399;
-  padding-bottom: 24px; /* Align with bars area excluding date labels */
-  height: calc(100% - 24px); /* Subtract date label height approx */
+  padding-bottom: 24px;
+  height: calc(100% - 24px);
 }
 
 .bars-area {
@@ -167,7 +159,7 @@ onMounted(() => {
   align-items: flex-end;
   position: relative;
   height: 100%;
-  padding-bottom: 24px; /* Space for date labels */
+  padding-bottom: 24px;
 }
 
 .grid-line {
@@ -186,13 +178,15 @@ html.dark .grid-line {
 .grid-line.top {
   top: 0;
 }
+
 .grid-line.middle {
   top: 50%;
   transform: translateY(-50%);
 }
+
 .grid-line.bottom {
   bottom: 24px;
-} /* Align with bottom of bars */
+}
 
 .day-column {
   flex: 1;
@@ -269,6 +263,7 @@ html.dark .legend-item {
 .dot.in {
   background-color: #5470c6;
 }
+
 .dot.out {
   background-color: #91cc75;
 }

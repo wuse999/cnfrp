@@ -1,25 +1,23 @@
 <template>
-  <!-- XTCP Options -->
-  <ConfigSection title="XTCP Options" collapsible :readonly="readonly"
+  <ConfigSection title="XTCP 选项" collapsible :readonly="readonly"
     :has-value="form.protocol !== 'quic' || form.keepTunnelOpen || form.maxRetriesAnHour != null || form.minRetryInterval != null || !!form.fallbackTo || form.fallbackTimeoutMs != null">
-    <ConfigField label="Protocol" type="select" v-model="form.protocol"
+    <ConfigField label="协议" type="select" v-model="form.protocol"
       :options="[{ label: 'QUIC', value: 'quic' }, { label: 'KCP', value: 'kcp' }]" :readonly="readonly" />
-    <ConfigField label="Keep Tunnel Open" type="switch" v-model="form.keepTunnelOpen" :readonly="readonly" />
+    <ConfigField label="保持隧道常开" type="switch" v-model="form.keepTunnelOpen" :readonly="readonly" />
     <div class="field-row two-col">
-      <ConfigField label="Max Retries per Hour" type="number" v-model="form.maxRetriesAnHour" :min="0" :readonly="readonly" />
-      <ConfigField label="Min Retry Interval (s)" type="number" v-model="form.minRetryInterval" :min="0" :readonly="readonly" />
+      <ConfigField label="每小时最大重试次数" type="number" v-model="form.maxRetriesAnHour" :min="0" :readonly="readonly" />
+      <ConfigField label="最小重试间隔（秒）" type="number" v-model="form.minRetryInterval" :min="0" :readonly="readonly" />
     </div>
     <div class="field-row two-col">
-      <ConfigField label="Fallback To" type="text" v-model="form.fallbackTo" placeholder="Fallback visitor name" :readonly="readonly" />
-      <ConfigField label="Fallback Timeout (ms)" type="number" v-model="form.fallbackTimeoutMs" :min="0" :readonly="readonly" />
+      <ConfigField label="回退访问端" type="text" v-model="form.fallbackTo" placeholder="回退访问端名称" :readonly="readonly" />
+      <ConfigField label="回退超时（毫秒）" type="number" v-model="form.fallbackTimeoutMs" :min="0" :readonly="readonly" />
     </div>
   </ConfigSection>
 
-  <!-- NAT Traversal -->
-  <ConfigSection title="NAT Traversal" collapsible :readonly="readonly"
+  <ConfigSection title="NAT 穿透" collapsible :readonly="readonly"
     :has-value="form.natTraversalDisableAssistedAddrs">
-    <ConfigField label="Disable Assisted Addresses" type="switch" v-model="form.natTraversalDisableAssistedAddrs"
-      tip="Only use STUN-discovered public addresses" :readonly="readonly" />
+    <ConfigField label="禁用辅助地址" type="switch" v-model="form.natTraversalDisableAssistedAddrs"
+      tip="仅使用 STUN 探测出的公网地址" :readonly="readonly" />
   </ConfigSection>
 </template>
 

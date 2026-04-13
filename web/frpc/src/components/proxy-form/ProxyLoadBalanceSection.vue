@@ -1,8 +1,8 @@
 <template>
-  <ConfigSection title="Load Balancer" collapsible :readonly="readonly" :has-value="!!form.loadBalancerGroup">
+  <ConfigSection title="负载均衡" collapsible :readonly="readonly" :has-value="!!form.loadBalancerGroup">
     <div class="field-row two-col">
-      <ConfigField label="Group" type="text" v-model="form.loadBalancerGroup" placeholder="Group name" :readonly="readonly" />
-      <ConfigField label="Group Key" type="text" v-model="form.loadBalancerGroupKey" :readonly="readonly" />
+      <ConfigField label="分组" type="text" v-model="form.loadBalancerGroup" placeholder="分组名称" :readonly="readonly" />
+      <ConfigField label="分组密钥" type="text" v-model="form.loadBalancerGroupKey" :readonly="readonly" />
     </div>
   </ConfigSection>
 </template>

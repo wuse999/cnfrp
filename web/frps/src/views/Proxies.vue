@@ -3,17 +3,22 @@
     <div class="page-header">
       <div class="header-top">
         <div class="title-section">
-          <h1 class="page-title">Proxies</h1>
-          <p class="page-subtitle">View and manage all proxy configurations</p>
+          <h1 class="page-title">代理</h1>
+          <p class="page-subtitle">查看并管理全部代理配置</p>
         </div>
 
         <div class="actions-section">
           <ActionButton variant="outline" size="small" @click="fetchData">
-            Refresh
+            刷新
           </ActionButton>
 
-          <ActionButton variant="outline" size="small" danger @click="showClearDialog = true">
-            Clear Offline
+          <ActionButton
+            variant="outline"
+            size="small"
+            danger
+            @click="showClearDialog = true"
+          >
+            清理离线代理
           </ActionButton>
         </div>
       </div>
@@ -22,7 +27,7 @@
         <div class="search-row">
           <el-input
             v-model="searchText"
-            placeholder="Search proxies..."
+            placeholder="搜索代理..."
             :prefix-icon="Search"
             clearable
             class="main-search"
@@ -34,19 +39,19 @@
             placement="bottom-end"
             selectable
             filterable
-            filter-placeholder="Search clients..."
+            filter-placeholder="搜索客户端..."
             :display-value="selectedClientLabel"
             clearable
             class="client-filter"
             @update:model-value="onClientFilterChange($event as string)"
           >
             <template #default="{ filterText }">
-              <PopoverMenuItem value="">All Clients</PopoverMenuItem>
+              <PopoverMenuItem value="">{{ allClientsLabel }}</PopoverMenuItem>
               <PopoverMenuItem
                 v-if="clientIDFilter && !selectedClientInList"
                 :value="selectedClientKey"
               >
-                {{ userFilter ? userFilter + '.' : '' }}{{ clientIDFilter }} (not found)
+                {{ userFilter ? userFilter + '.' : '' }}{{ clientIDFilter }}（未找到）
               </PopoverMenuItem>
               <PopoverMenuItem
                 v-for="client in filteredClientOptions(filterText)"
@@ -82,15 +87,15 @@
         />
       </div>
       <div v-else-if="!loading" class="empty-state">
-        <el-empty description="No proxies found" />
+        <el-empty description="未找到代理" />
       </div>
     </div>
 
     <ConfirmDialog
       v-model="showClearDialog"
-      title="Clear Offline"
-      message="Are you sure you want to clear all offline proxies?"
-      confirm-text="Clear"
+      title="清理离线代理"
+      message="确认清理全部离线代理吗？"
+      confirm-text="清理"
       danger
       @confirm="handleClearConfirm"
     />
@@ -104,6 +109,8 @@ import { ElMessage } from 'element-plus'
 import { Search } from '@element-plus/icons-vue'
 import ActionButton from '@shared/components/ActionButton.vue'
 import ConfirmDialog from '@shared/components/ConfirmDialog.vue'
+import PopoverMenu from '@shared/components/PopoverMenu.vue'
+import PopoverMenuItem from '@shared/components/PopoverMenuItem.vue'
 import {
   BaseProxy,
   TCPProxy,
@@ -115,8 +122,6 @@ import {
   SUDPProxy,
 } from '../utils/proxy'
 import ProxyCard from '../components/ProxyCard.vue'
-import PopoverMenu from '@shared/components/PopoverMenu.vue'
-import PopoverMenuItem from '@shared/components/PopoverMenuItem.vue'
 import {
   getProxiesByType,
   clearOfflineProxies as apiClearOfflineProxies,
@@ -127,6 +132,8 @@ import { Client } from '../utils/client'
 
 const route = useRoute()
 const router = useRouter()
+
+const allClientsLabel = '全部客户端'
 
 const proxyTypes = [
   { label: 'TCP', value: 'tcp' },
@@ -158,31 +165,33 @@ const clientOptions = computed(() => {
     .sort((a, b) => a.label.localeCompare(b.label))
 })
 
-// Compute selected client key for el-select v-model
 const selectedClientKey = computed(() => {
   if (!clientIDFilter.value) return ''
   const client = clientOptions.value.find(
     (c) => c.clientID === clientIDFilter.value && c.user === userFilter.value,
   )
-  // Return a synthetic key even if not found, so the select shows the filter is active
   return client?.key || `${userFilter.value}:${clientIDFilter.value}`
 })
 
 const selectedClientLabel = computed(() => {
-  if (!clientIDFilter.value) return 'All Clients'
+  if (!clientIDFilter.value) return allClientsLabel
   const client = clientOptions.value.find(
     (c) => c.clientID === clientIDFilter.value && c.user === userFilter.value,
   )
-  return client?.label || `${userFilter.value ? userFilter.value + '.' : ''}${clientIDFilter.value}`
+  return (
+    client?.label ||
+    `${userFilter.value ? userFilter.value + '.' : ''}${clientIDFilter.value}`
+  )
 })
 
 const filteredClientOptions = (filterText: string) => {
   if (!filterText) return clientOptions.value
   const search = filterText.toLowerCase()
-  return clientOptions.value.filter((c) => c.label.toLowerCase().includes(search))
+  return clientOptions.value.filter((c) =>
+    c.label.toLowerCase().includes(search),
+  )
 }
 
-// Check if the filtered client exists in the client list
 const selectedClientInList = computed(() => {
   if (!clientIDFilter.value) return true
   return clientOptions.value.some(
@@ -193,14 +202,12 @@ const selectedClientInList = computed(() => {
 const filteredProxies = computed(() => {
   let result = proxies.value
 
-  // Filter by clientID and user if specified
   if (clientIDFilter.value) {
     result = result.filter(
       (p) => p.clientID === clientIDFilter.value && p.user === userFilter.value,
     )
   }
 
-  // Filter by search text
   if (searchText.value) {
     const search = searchText.value.toLowerCase()
     result = result.filter((p) => p.name.toLowerCase().includes(search))
@@ -230,11 +237,10 @@ const fetchClients = async () => {
     const json = await getClients()
     clients.value = json.map((data) => new Client(data))
   } catch {
-    // Ignore errors when fetching clients
+    // 忽略客户端筛选数据加载失败。
   }
 }
 
-// Server info cache
 let serverInfo: {
   vhostHTTPPort: number
   vhostHTTPSPort: number
@@ -292,7 +298,7 @@ const fetchData = async () => {
   } catch (error: any) {
     ElMessage({
       showClose: true,
-      message: 'Failed to fetch proxies: ' + error.message,
+      message: '获取代理失败：' + error.message,
       type: 'error',
     })
   } finally {
@@ -309,26 +315,23 @@ const clearOfflineProxies = async () => {
   try {
     await apiClearOfflineProxies()
     ElMessage({
-      message: 'Successfully cleared offline proxies',
+      message: '离线代理已清理',
       type: 'success',
     })
     fetchData()
   } catch (err: any) {
     ElMessage({
-      message: 'Failed to clear offline proxies: ' + err.message,
+      message: '清理离线代理失败：' + err.message,
       type: 'warning',
     })
   }
 }
 
-// Watch for type changes
 watch(activeType, (newType) => {
-  // Update route but preserve query params
   router.replace({ params: { type: newType }, query: route.query })
   fetchData()
 })
 
-// Watch for route query changes (client filter)
 watch(
   () => [route.query.clientID, route.query.user],
   ([newClientID, newUser]) => {
@@ -337,7 +340,6 @@ watch(
   },
 )
 
-// Initial fetch
 fetchData()
 fetchClients()
 </script>
@@ -386,7 +388,6 @@ fetchClients()
   display: flex;
   gap: 12px;
 }
-
 
 .filter-section {
   display: flex;

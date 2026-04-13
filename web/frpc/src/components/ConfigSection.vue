@@ -1,6 +1,5 @@
 <template>
   <div class="config-section-card">
-    <!-- Collapsible: header is a separate clickable area -->
     <template v-if="collapsible">
       <div
         v-if="title"
@@ -10,7 +9,7 @@
         <h3 class="section-title">{{ title }}</h3>
         <div class="section-header-right">
           <span v-if="readonly && !hasValue" class="not-configured-badge">
-            Not configured
+            未配置
           </span>
           <el-icon v-if="canToggle" class="collapse-arrow" :class="{ expanded }">
             <ArrowDown />
@@ -26,7 +25,6 @@
       </div>
     </template>
 
-    <!-- Non-collapsible: title and content in one area -->
     <template v-else>
       <div class="section-body">
         <h3 v-if="title" class="section-title section-title-inline">{{ title }}</h3>
@@ -62,8 +60,6 @@ const computeInitial = () => {
 
 const expanded = ref(computeInitial())
 
-// Only auto-expand when hasValue goes from false to true (async data loaded)
-// Never auto-collapse — don't override user interaction
 watch(
   () => props.hasValue,
   (newVal, oldVal) => {
@@ -95,7 +91,6 @@ const handleToggle = () => {
   overflow: hidden;
 }
 
-/* Collapsible header */
 .section-header {
   display: flex;
   justify-content: space-between;
@@ -119,7 +114,6 @@ const handleToggle = () => {
   margin: 0;
 }
 
-/* Inline title for non-collapsible sections */
 .section-title-inline {
   margin-bottom: 16px;
 }
@@ -147,7 +141,6 @@ const handleToggle = () => {
   transform: rotate(-180deg);
 }
 
-/* Grid-based collapse animation */
 .collapse-wrapper {
   display: grid;
   grid-template-rows: 0fr;

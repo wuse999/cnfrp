@@ -2,14 +2,14 @@
   <div class="visitor-edit-page">
     <div class="edit-header">
       <nav class="breadcrumb">
-        <router-link to="/visitors" class="breadcrumb-item">Visitors</router-link>
-        <span class="breadcrumb-separator">›</span>
-        <span class="breadcrumb-current">{{ isEditing ? 'Edit Visitor' : 'New Visitor' }}</span>
+        <router-link to="/visitors" class="breadcrumb-item">访问端</router-link>
+        <span class="breadcrumb-separator">&rsaquo;</span>
+        <span class="breadcrumb-current">{{ isEditing ? '编辑访问端' : '新建访问端' }}</span>
       </nav>
       <div class="header-actions">
-        <ActionButton variant="outline" size="small" @click="goBack">Cancel</ActionButton>
+        <ActionButton variant="outline" size="small" @click="goBack">取消</ActionButton>
         <ActionButton size="small" :loading="saving" @click="handleSave">
-          {{ isEditing ? 'Update' : 'Create' }}
+          {{ isEditing ? '更新' : '创建' }}
         </ActionButton>
       </div>
     </div>
@@ -28,8 +28,8 @@
 
     <ConfirmDialog
       v-model="leaveDialogVisible"
-      title="Unsaved Changes"
-      message="You have unsaved changes. Are you sure you want to leave?"
+      title="未保存的更改"
+      message="当前内容尚未保存，确认离开吗？"
       :is-mobile="isMobile"
       @confirm="handleLeaveConfirm"
       @cancel="handleLeaveCancel"
@@ -71,35 +71,35 @@ const trackChanges = ref(false)
 
 const formRules: FormRules = {
   name: [
-    { required: true, message: 'Name is required', trigger: 'blur' },
-    { min: 1, max: 50, message: 'Length should be 1 to 50', trigger: 'blur' },
+    { required: true, message: '名称不能为空', trigger: 'blur' },
+    { min: 1, max: 50, message: '长度需为 1 到 50 个字符', trigger: 'blur' },
   ],
-  type: [{ required: true, message: 'Type is required', trigger: 'change' }],
+  type: [{ required: true, message: '类型不能为空', trigger: 'change' }],
   serverName: [
-    { required: true, message: 'Server name is required', trigger: 'blur' },
+    { required: true, message: '服务端名称不能为空', trigger: 'blur' },
   ],
   bindPort: [
-    { required: true, message: 'Bind port is required', trigger: 'blur' },
+    { required: true, message: '绑定端口不能为空', trigger: 'blur' },
     {
       validator: (_rule, value, callback) => {
         if (value == null) {
-          callback(new Error('Bind port is required'))
+          callback(new Error('绑定端口不能为空'))
           return
         }
         if (value > 65535) {
-          callback(new Error('Bind port must be less than or equal to 65535'))
+          callback(new Error('绑定端口必须小于等于 65535'))
           return
         }
         if (form.value.type === 'sudp') {
           if (value < 1) {
-            callback(new Error('SUDP bind port must be greater than 0'))
+            callback(new Error('SUDP 绑定端口必须大于 0'))
             return
           }
           callback()
           return
         }
         if (value === 0) {
-          callback(new Error('Bind port cannot be 0'))
+          callback(new Error('绑定端口不能为 0'))
           return
         }
         callback()
@@ -157,7 +157,7 @@ const loadVisitor = async () => {
     form.value = storeVisitorToForm(res)
     await nextTick()
   } catch (err: any) {
-    ElMessage.error('Failed to load visitor: ' + err.message)
+    ElMessage.error('加载访问端失败：' + err.message)
     router.push('/visitors')
   } finally {
     pageLoading.value = false
@@ -173,7 +173,7 @@ const handleSave = async () => {
   try {
     await formRef.value.validate()
   } catch {
-    ElMessage.warning('Please fix the form errors')
+    ElMessage.warning('请先修正表单中的错误项')
     return
   }
 
@@ -182,15 +182,15 @@ const handleSave = async () => {
     const data = formToStoreVisitor(form.value)
     if (isEditing.value) {
       await visitorStore.updateVisitor(form.value.name, data)
-      ElMessage.success('Visitor updated')
+      ElMessage.success('访问端已更新')
     } else {
       await visitorStore.createVisitor(data)
-      ElMessage.success('Visitor created')
+      ElMessage.success('访问端已创建')
     }
     formSaved.value = true
     router.push('/visitors')
   } catch (err: any) {
-    ElMessage.error('Operation failed: ' + (err.message || 'Unknown error'))
+    ElMessage.error('操作失败：' + (err.message || '未知错误'))
   } finally {
     saving.value = false
   }
@@ -231,7 +231,6 @@ watch(
   margin: 0 auto;
 }
 
-/* Header */
 .edit-header {
   display: flex;
   align-items: center;
@@ -256,7 +255,6 @@ watch(
   gap: 8px;
 }
 
-/* Breadcrumb */
 .breadcrumb {
   display: flex;
   align-items: center;

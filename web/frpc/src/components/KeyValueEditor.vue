@@ -1,7 +1,7 @@
 <template>
   <div class="kv-editor">
     <template v-if="readonly">
-      <div v-if="modelValue.length === 0" class="kv-empty">—</div>
+      <div v-if="modelValue.length === 0" class="kv-empty">未配置</div>
       <div v-for="(entry, index) in modelValue" :key="index" class="kv-readonly-row">
         <span class="kv-readonly-key">{{ entry.key }}</span>
         <span class="kv-readonly-value">{{ entry.value }}</span>
@@ -43,7 +43,7 @@
             fill="currentColor"
           />
         </svg>
-        Add
+        添加
       </button>
     </template>
   </div>
@@ -63,8 +63,8 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  keyPlaceholder: 'Key',
-  valuePlaceholder: 'Value',
+  keyPlaceholder: '键',
+  valuePlaceholder: '值',
   readonly: false,
 })
 

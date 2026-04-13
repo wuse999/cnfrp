@@ -57,7 +57,6 @@
 </template>
 
 <script lang="ts">
-// Module-level singleton for coordinating popover menus
 const popoverEventTarget = new EventTarget()
 const CLOSE_ALL_EVENT = 'close-all-popovers'
 </script>
@@ -102,7 +101,7 @@ const props = withDefaults(defineProps<Props>(), {
   disabled: false,
   fullWidth: false,
   filterable: false,
-  filterPlaceholder: 'Search...',
+  filterPlaceholder: '搜索...',
   displayValue: '',
   clearable: false,
 })

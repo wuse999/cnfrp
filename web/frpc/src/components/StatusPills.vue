@@ -35,10 +35,10 @@ const pills = computed(() => {
     }
   }
   return [
-    { status: '', label: 'All', count: props.items.length },
-    { status: 'running', label: 'Running', count: counts.running },
-    { status: 'error', label: 'Error', count: counts.error },
-    { status: 'waiting', label: 'Waiting', count: counts.waiting },
+    { status: '', label: '全部', count: props.items.length },
+    { status: 'running', label: '运行中', count: counts.running },
+    { status: 'error', label: '异常', count: counts.error },
+    { status: 'waiting', label: '等待中', count: counts.waiting },
   ]
 })
 </script>

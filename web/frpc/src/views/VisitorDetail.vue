@@ -1,9 +1,8 @@
 <template>
   <div class="visitor-detail-page">
-    <!-- Fixed Header -->
     <div class="detail-top">
       <nav class="breadcrumb">
-        <router-link to="/visitors" class="breadcrumb-link">Visitors</router-link>
+        <router-link to="/visitors" class="breadcrumb-link">访问端</router-link>
         <span class="breadcrumb-sep">&rsaquo;</span>
         <span class="breadcrumb-current">{{ visitorName }}</span>
       </nav>
@@ -12,11 +11,11 @@
         <div class="detail-header">
           <div>
             <h2 class="detail-title">{{ visitor.name }}</h2>
-            <p class="header-subtitle">Type: {{ visitor.type.toUpperCase() }}</p>
+            <p class="header-subtitle">类型：{{ visitor.type.toUpperCase() }}</p>
           </div>
           <div v-if="isStore" class="header-actions">
             <ActionButton variant="outline" size="small" @click="handleEdit">
-              Edit
+              编辑
             </ActionButton>
           </div>
         </div>
@@ -24,10 +23,10 @@
     </div>
 
     <div v-if="notFound" class="not-found">
-      <p class="empty-text">Visitor not found</p>
-      <p class="empty-hint">The visitor "{{ visitorName }}" does not exist.</p>
+      <p class="empty-text">未找到访问端</p>
+      <p class="empty-hint">访问端“{{ visitorName }}”不存在。</p>
       <ActionButton variant="outline" @click="router.push('/visitors')">
-        Back to Visitors
+        返回访问端列表
       </ActionButton>
     </div>
 
@@ -40,7 +39,6 @@
     </div>
 
     <div v-else v-loading="loading" class="loading-area"></div>
-
   </div>
 </template>
 
@@ -68,19 +66,18 @@ onMounted(async () => {
     const config = await getVisitorConfig(visitorName)
     visitor.value = config
 
-    // Check if visitor is from the store (for Edit/Delete buttons)
     try {
       await getStoreVisitor(visitorName)
       isStore.value = true
     } catch {
-      // Not a store visitor — Edit/Delete not available
+      // 非 Store 访问端时不显示编辑入口。
     }
   } catch (err: any) {
     if (err?.status === 404 || err?.response?.status === 404) {
       notFound.value = true
     } else {
       notFound.value = true
-      ElMessage.error('Failed to load visitor: ' + err.message)
+      ElMessage.error('加载访问端失败：' + err.message)
     }
   } finally {
     loading.value = false
@@ -95,7 +92,6 @@ const formData = computed<VisitorFormData | null>(() => {
 const handleEdit = () => {
   router.push('/visitors/' + encodeURIComponent(visitorName) + '/edit')
 }
-
 </script>
 
 <style scoped lang="scss">

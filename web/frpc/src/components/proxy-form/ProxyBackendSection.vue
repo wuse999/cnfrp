@@ -1,75 +1,72 @@
 <template>
-  <!-- Backend Mode -->
   <template v-if="!readonly">
-    <el-form-item label="Backend Mode">
+    <el-form-item label="后端模式">
       <el-radio-group v-model="backendMode">
-        <el-radio value="direct">Direct</el-radio>
-        <el-radio value="plugin">Plugin</el-radio>
+        <el-radio value="direct">直连</el-radio>
+        <el-radio value="plugin">插件</el-radio>
       </el-radio-group>
     </el-form-item>
   </template>
 
-  <!-- Direct mode -->
   <template v-if="backendMode === 'direct'">
     <div class="field-row two-col">
-      <ConfigField label="Local IP" type="text" v-model="form.localIP" placeholder="127.0.0.1" :readonly="readonly" />
-      <ConfigField label="Local Port" type="number" v-model="form.localPort" :min="0" :max="65535" prop="localPort" :readonly="readonly" />
+      <ConfigField label="本地 IP" type="text" v-model="form.localIP" placeholder="127.0.0.1" :readonly="readonly" />
+      <ConfigField label="本地端口" type="number" v-model="form.localPort" :min="0" :max="65535" prop="localPort" :readonly="readonly" />
     </div>
   </template>
 
-  <!-- Plugin mode -->
   <template v-else>
     <div class="field-row two-col">
-      <ConfigField label="Plugin Type" type="select" v-model="form.pluginType"
+      <ConfigField label="插件类型" type="select" v-model="form.pluginType"
         :options="PLUGIN_LIST.map((p) => ({ label: p, value: p }))" :readonly="readonly" />
       <div></div>
     </div>
 
     <template v-if="['http2https', 'https2http', 'https2https', 'http2http', 'tls2raw'].includes(form.pluginType)">
       <div class="field-row two-col">
-        <ConfigField label="Local Address" type="text" v-model="form.pluginConfig.localAddr" placeholder="127.0.0.1:8080" :readonly="readonly" />
+        <ConfigField label="本地地址" type="text" v-model="form.pluginConfig.localAddr" placeholder="127.0.0.1:8080" :readonly="readonly" />
         <ConfigField v-if="['http2https', 'https2http', 'https2https', 'http2http'].includes(form.pluginType)"
-          label="Host Header Rewrite" type="text" v-model="form.pluginConfig.hostHeaderRewrite" :readonly="readonly" />
+          label="Host Header 重写" type="text" v-model="form.pluginConfig.hostHeaderRewrite" :readonly="readonly" />
         <div v-else></div>
       </div>
     </template>
     <template v-if="['http2https', 'https2http', 'https2https', 'http2http'].includes(form.pluginType)">
-      <ConfigField label="Request Headers" type="kv" v-model="pluginRequestHeaders"
-        key-placeholder="Header" value-placeholder="Value" :readonly="readonly" />
+      <ConfigField label="请求头" type="kv" v-model="pluginRequestHeaders"
+        key-placeholder="请求头" value-placeholder="值" :readonly="readonly" />
     </template>
     <template v-if="['https2http', 'https2https', 'tls2raw'].includes(form.pluginType)">
       <div class="field-row two-col">
-        <ConfigField label="Certificate Path" type="text" v-model="form.pluginConfig.crtPath" placeholder="/path/to/cert.pem" :readonly="readonly" />
-        <ConfigField label="Key Path" type="text" v-model="form.pluginConfig.keyPath" placeholder="/path/to/key.pem" :readonly="readonly" />
+        <ConfigField label="证书路径" type="text" v-model="form.pluginConfig.crtPath" placeholder="/path/to/cert.pem" :readonly="readonly" />
+        <ConfigField label="密钥路径" type="text" v-model="form.pluginConfig.keyPath" placeholder="/path/to/key.pem" :readonly="readonly" />
       </div>
     </template>
     <template v-if="['https2http', 'https2https'].includes(form.pluginType)">
-      <ConfigField label="Enable HTTP/2" type="switch" v-model="form.pluginConfig.enableHTTP2" :readonly="readonly" />
+      <ConfigField label="启用 HTTP/2" type="switch" v-model="form.pluginConfig.enableHTTP2" :readonly="readonly" />
     </template>
     <template v-if="form.pluginType === 'http_proxy'">
       <div class="field-row two-col">
-        <ConfigField label="HTTP User" type="text" v-model="form.pluginConfig.httpUser" :readonly="readonly" />
-        <ConfigField label="HTTP Password" type="password" v-model="form.pluginConfig.httpPassword" :readonly="readonly" />
+        <ConfigField label="HTTP 用户" type="text" v-model="form.pluginConfig.httpUser" :readonly="readonly" />
+        <ConfigField label="HTTP 密码" type="password" v-model="form.pluginConfig.httpPassword" :readonly="readonly" />
       </div>
     </template>
     <template v-if="form.pluginType === 'socks5'">
       <div class="field-row two-col">
-        <ConfigField label="Username" type="text" v-model="form.pluginConfig.username" :readonly="readonly" />
-        <ConfigField label="Password" type="password" v-model="form.pluginConfig.password" :readonly="readonly" />
+        <ConfigField label="用户名" type="text" v-model="form.pluginConfig.username" :readonly="readonly" />
+        <ConfigField label="密码" type="password" v-model="form.pluginConfig.password" :readonly="readonly" />
       </div>
     </template>
     <template v-if="form.pluginType === 'static_file'">
       <div class="field-row two-col">
-        <ConfigField label="Local Path" type="text" v-model="form.pluginConfig.localPath" placeholder="/path/to/files" :readonly="readonly" />
-        <ConfigField label="Strip Prefix" type="text" v-model="form.pluginConfig.stripPrefix" :readonly="readonly" />
+        <ConfigField label="本地路径" type="text" v-model="form.pluginConfig.localPath" placeholder="/path/to/files" :readonly="readonly" />
+        <ConfigField label="去除前缀" type="text" v-model="form.pluginConfig.stripPrefix" :readonly="readonly" />
       </div>
       <div class="field-row two-col">
-        <ConfigField label="HTTP User" type="text" v-model="form.pluginConfig.httpUser" :readonly="readonly" />
-        <ConfigField label="HTTP Password" type="password" v-model="form.pluginConfig.httpPassword" :readonly="readonly" />
+        <ConfigField label="HTTP 用户" type="text" v-model="form.pluginConfig.httpUser" :readonly="readonly" />
+        <ConfigField label="HTTP 密码" type="password" v-model="form.pluginConfig.httpPassword" :readonly="readonly" />
       </div>
     </template>
     <template v-if="form.pluginType === 'unix_domain_socket'">
-      <ConfigField label="Unix Socket Path" type="text" v-model="form.pluginConfig.unixPath" placeholder="/tmp/socket.sock" :readonly="readonly" />
+      <ConfigField label="Unix Socket 路径" type="text" v-model="form.pluginConfig.unixPath" placeholder="/tmp/socket.sock" :readonly="readonly" />
     </template>
   </template>
 </template>

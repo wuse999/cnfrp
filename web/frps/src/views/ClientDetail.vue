@@ -1,11 +1,10 @@
 <template>
   <div class="client-detail-page">
-    <!-- Breadcrumb -->
     <nav class="breadcrumb">
       <a class="breadcrumb-link" @click="goBack">
         <el-icon><ArrowLeft /></el-icon>
       </a>
-      <router-link to="/clients" class="breadcrumb-item">Clients</router-link>
+      <router-link to="/clients" class="breadcrumb-item">客户端</router-link>
       <span class="breadcrumb-separator">/</span>
       <span class="breadcrumb-current">{{
         client?.displayName || route.params.key
@@ -14,7 +13,6 @@
 
     <div v-loading="loading" class="detail-content">
       <template v-if="client">
-        <!-- Header Card -->
         <div class="header-card">
           <div class="header-main">
             <div class="header-left">
@@ -24,17 +22,15 @@
               <div class="client-info">
                 <div class="client-name-row">
                   <h1 class="client-name">{{ client.displayName }}</h1>
-                  <el-tag v-if="client.version" size="small" type="success"
-                    >v{{ client.version }}</el-tag
-                  >
+                  <el-tag v-if="client.version" size="small" type="success">
+                    v{{ client.version }}
+                  </el-tag>
                 </div>
                 <div class="client-meta">
-                  <span v-if="client.ip" class="meta-item">{{
-                    client.ip
-                  }}</span>
-                  <span v-if="client.hostname" class="meta-item">{{
-                    client.hostname
-                  }}</span>
+                  <span v-if="client.ip" class="meta-item">{{ client.ip }}</span>
+                  <span v-if="client.hostname" class="meta-item">
+                    {{ client.hostname }}
+                  </span>
                 </div>
               </div>
             </div>
@@ -43,15 +39,14 @@
                 class="status-badge"
                 :class="client.online ? 'online' : 'offline'"
               >
-                {{ client.online ? 'Online' : 'Offline' }}
+                {{ client.online ? '在线' : '离线' }}
               </span>
             </div>
           </div>
 
-          <!-- Info Section -->
           <div class="info-section">
             <div class="info-item">
-              <span class="info-label">Connections</span>
+              <span class="info-label">连接数</span>
               <span class="info-value">{{ totalConnections }}</span>
             </div>
             <div class="info-item">
@@ -59,12 +54,12 @@
               <span class="info-value">{{ client.runID }}</span>
             </div>
             <div class="info-item">
-              <span class="info-label">First Connected</span>
+              <span class="info-label">首次连接</span>
               <span class="info-value">{{ client.firstConnectedAgo }}</span>
             </div>
             <div class="info-item">
               <span class="info-label">{{
-                client.online ? 'Connected' : 'Disconnected'
+                client.online ? '最近连接' : '最近离线'
               }}</span>
               <span class="info-value">{{
                 client.online ? client.lastConnectedAgo : client.disconnectedAgo
@@ -73,16 +68,15 @@
           </div>
         </div>
 
-        <!-- Proxies Card -->
         <div class="proxies-card">
           <div class="proxies-header">
             <div class="proxies-title">
-              <h2>Proxies</h2>
+              <h2>代理</h2>
               <span class="proxies-count">{{ filteredProxies.length }}</span>
             </div>
             <el-input
               v-model="proxySearch"
-              placeholder="Search proxies..."
+              placeholder="搜索代理..."
               :prefix-icon="Search"
               clearable
               class="proxy-search"
@@ -91,7 +85,7 @@
           <div class="proxies-body">
             <div v-if="proxiesLoading" class="loading-state">
               <el-icon class="is-loading"><Loading /></el-icon>
-              <span>Loading...</span>
+              <span>加载中...</span>
             </div>
             <div v-else-if="filteredProxies.length > 0" class="proxies-list">
               <ProxyCard
@@ -102,20 +96,20 @@
               />
             </div>
             <div v-else-if="clientProxies.length > 0" class="empty-state">
-              <p>No proxies match "{{ proxySearch }}"</p>
+              <p>没有匹配“{{ proxySearch }}”的代理</p>
             </div>
             <div v-else class="empty-state">
-              <p>No proxies found</p>
+              <p>暂无代理</p>
             </div>
           </div>
         </div>
       </template>
 
       <div v-else-if="!loading" class="not-found">
-        <h2>Client not found</h2>
-        <p>The client doesn't exist or has been removed.</p>
+        <h2>未找到客户端</h2>
+        <p>该客户端不存在，或已被移除。</p>
         <router-link to="/clients">
-          <el-button type="primary">Back to Clients</el-button>
+          <el-button type="primary">返回客户端列表</el-button>
         </router-link>
       </div>
     </div>
@@ -155,6 +149,7 @@ const goBack = () => {
     router.push('/clients')
   }
 }
+
 const proxiesLoading = ref(false)
 const allProxies = ref<BaseProxy[]>([])
 const proxySearch = ref('')
@@ -205,7 +200,7 @@ const fetchClient = async () => {
     const data = await getClient(key)
     client.value = new Client(data)
   } catch (error: any) {
-    ElMessage.error('Failed to fetch client: ' + error.message)
+    ElMessage.error('获取客户端失败：' + error.message)
   } finally {
     loading.value = false
   }
@@ -256,12 +251,12 @@ const fetchProxies = async () => {
           proxies.push(...json.proxies.map((p: any) => new SUDPProxy(p)))
         }
       } catch {
-        // Ignore
+        // 忽略单类代理获取失败，避免影响整体页面。
       }
     }
     allProxies.value = proxies
   } catch {
-    // Ignore
+    // 忽略服务端信息获取失败。
   } finally {
     proxiesLoading.value = false
   }
@@ -277,7 +272,6 @@ onMounted(() => {
 .client-detail-page {
 }
 
-/* Breadcrumb */
 .breadcrumb {
   display: flex;
   align-items: center;
@@ -318,7 +312,6 @@ onMounted(() => {
   font-weight: 500;
 }
 
-/* Card Base */
 .header-card,
 .proxies-card {
   background: var(--el-bg-color);
@@ -327,7 +320,6 @@ onMounted(() => {
   margin-bottom: 16px;
 }
 
-/* Header Card */
 .header-main {
   display: flex;
   justify-content: space-between;
@@ -403,7 +395,6 @@ html.dark .status-badge.online {
   color: #4ade80;
 }
 
-/* Info Section */
 .info-section {
   display: flex;
   flex-wrap: wrap;
@@ -433,7 +424,6 @@ html.dark .status-badge.online {
   word-break: break-all;
 }
 
-/* Proxies Card */
 .proxies-header {
   display: flex;
   justify-content: space-between;
@@ -501,7 +491,6 @@ html.dark .status-badge.online {
   margin: 0;
 }
 
-/* Not Found */
 .not-found {
   text-align: center;
   padding: 60px 20px;
@@ -520,7 +509,6 @@ html.dark .status-badge.online {
   margin: 0 0 20px;
 }
 
-/* Responsive */
 @media (max-width: 640px) {
   .header-main {
     flex-direction: column;

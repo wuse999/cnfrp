@@ -75,9 +75,7 @@ router.beforeEach(async (to) => {
     return true
   }
 
-  ElMessage.warning(
-    'Store is disabled. Enable Store in frpc config to create or edit store entries.',
-  )
+  ElMessage.warning('Store 未启用，请先在 frpc 配置中开启 Store 后再创建或编辑条目。')
   return { name: 'ProxyList' }
 })
 

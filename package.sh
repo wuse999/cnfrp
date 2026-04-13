@@ -8,8 +8,13 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-frp_version=`./bin/frps --version`
-echo "build version: $frp_version"
+raw_version=`./bin/frps --version`
+case "$raw_version" in
+    v*) release_version="$raw_version" ;;
+    *) release_version="v${raw_version}" ;;
+esac
+
+echo "build version: $release_version"
 
 # cross_compiles
 make -f ./Makefile.cross-compiles
@@ -17,7 +22,7 @@ make -f ./Makefile.cross-compiles
 rm -rf ./release/packages
 mkdir -p ./release/packages
 
-os_all='linux windows darwin freebsd openbsd android'
+os_all='linux windows darwin freebsd openbsd'
 arch_all='386 amd64 arm arm64 mips64 mips64le mips mipsle riscv64 loong64'
 extra_all='_ hf'
 
@@ -30,8 +35,9 @@ for os in $os_all; do
             if [ "x${extra}" != x"_" ]; then
                 suffix="${os}_${arch}_${extra}"
             fi
-            frp_dir_name="frp_${frp_version}_${suffix}"
-            frp_path="./packages/frp_${frp_version}_${suffix}"
+
+            archive_name="cnfrp_${release_version}_${suffix}"
+            package_path="./packages/${archive_name}"
 
             if [ "x${os}" = x"windows" ]; then
                 if [ ! -f "./frpc_${os}_${arch}.exe" ]; then
@@ -40,9 +46,9 @@ for os in $os_all; do
                 if [ ! -f "./frps_${os}_${arch}.exe" ]; then
                     continue
                 fi
-                mkdir ${frp_path}
-                mv ./frpc_${os}_${arch}.exe ${frp_path}/frpc.exe
-                mv ./frps_${os}_${arch}.exe ${frp_path}/frps.exe
+                mkdir "${package_path}"
+                mv "./frpc_${os}_${arch}.exe" "${package_path}/frpc.exe"
+                mv "./frps_${os}_${arch}.exe" "${package_path}/frps.exe"
             else
                 if [ ! -f "./frpc_${suffix}" ]; then
                     continue
@@ -50,23 +56,23 @@ for os in $os_all; do
                 if [ ! -f "./frps_${suffix}" ]; then
                     continue
                 fi
-                mkdir ${frp_path}
-                mv ./frpc_${suffix} ${frp_path}/frpc
-                mv ./frps_${suffix} ${frp_path}/frps
-            fi  
-            cp ../LICENSE ${frp_path}
-            cp -f ../conf/frpc.toml ${frp_path}
-            cp -f ../conf/frps.toml ${frp_path}
+                mkdir "${package_path}"
+                mv "./frpc_${suffix}" "${package_path}/frpc"
+                mv "./frps_${suffix}" "${package_path}/frps"
+            fi
 
-            # packages
+            cp ../LICENSE "${package_path}"
+            cp -f ../conf/frpc.toml "${package_path}"
+            cp -f ../conf/frps.toml "${package_path}"
+
             cd ./packages
             if [ "x${os}" = x"windows" ]; then
-                zip -rq ${frp_dir_name}.zip ${frp_dir_name}
+                zip -rq "${archive_name}.zip" "${archive_name}"
             else
-                tar -zcf ${frp_dir_name}.tar.gz ${frp_dir_name}
-            fi  
+                tar -zcf "${archive_name}.tar.gz" "${archive_name}"
+            fi
             cd ..
-            rm -rf ${frp_path}
+            rm -rf "${package_path}"
         done
     done
 done

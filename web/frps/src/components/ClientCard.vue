@@ -13,9 +13,9 @@
         <span v-if="client.hostname" class="hostname-badge">{{
           client.hostname
         }}</span>
-        <el-tag v-if="client.version" size="small" type="success"
-          >v{{ client.version }}</el-tag
-        >
+        <el-tag v-if="client.version" size="small" type="success">
+          v{{ client.version }}
+        </el-tag>
       </div>
 
       <div class="card-meta">
@@ -36,7 +36,7 @@
 
     <div class="card-action">
       <div class="status-badge" :class="client.online ? 'online' : 'offline'">
-        {{ client.online ? 'Online' : 'Offline' }}
+        {{ client.online ? '在线' : '离线' }}
       </div>
       <el-icon class="arrow-icon"><ArrowRight /></el-icon>
     </div>
@@ -221,7 +221,6 @@ const viewDetail = () => {
   transform: translateX(4px);
 }
 
-/* Dark mode adjustments */
 html.dark .card-icon-wrapper {
   background: var(--el-fill-color-light);
 }

@@ -2,7 +2,7 @@
   <div class="configure-page">
     <div class="page-header">
       <div class="title-section">
-        <h1 class="page-title">Config</h1>
+        <h1 class="page-title">配置</h1>
       </div>
     </div>
 
@@ -14,20 +14,20 @@
           class="docs-link"
         >
           <el-icon><Link /></el-icon>
-          Documentation
+          文档
         </a>
       </div>
       <div class="header-actions">
-        <ActionButton @click="handleUpload">Update & Reload</ActionButton>
+        <ActionButton @click="handleUpload">更新并重载</ActionButton>
       </div>
     </div>
 
     <div class="editor-wrapper">
       <el-input
+        v-model="configContent"
         type="textarea"
         :autosize="false"
-        v-model="configContent"
-        placeholder="# frpc configuration file content...
+        placeholder="# 在此填写 frpc 配置文件内容...
 
 serverAddr = &quot;127.0.0.1&quot;
 serverPort = 7000"
@@ -37,9 +37,9 @@ serverPort = 7000"
 
     <ConfirmDialog
       v-model="confirmVisible"
-      title="Confirm Update"
-      message="This operation will update your frpc configuration and reload it. Do you want to continue?"
-      confirm-text="Update"
+      title="确认更新"
+      message="该操作会更新当前 frpc 配置并立即重载，确认继续吗？"
+      confirm-text="更新"
       :loading="uploading"
       :is-mobile="isMobile"
       @confirm="doUpload"
@@ -67,7 +67,7 @@ const fetchData = async () => {
   } catch (err: any) {
     ElMessage({
       showClose: true,
-      message: 'Get configuration failed: ' + err.message,
+      message: '获取配置失败：' + err.message,
       type: 'warning',
     })
   }
@@ -82,7 +82,7 @@ const handleUpload = () => {
 
 const doUpload = async () => {
   if (!configContent.value.trim()) {
-    ElMessage.warning('Configuration content cannot be empty!')
+    ElMessage.warning('配置内容不能为空')
     return
   }
 
@@ -90,10 +90,10 @@ const doUpload = async () => {
   try {
     await clientStore.saveConfig(configContent.value)
     await clientStore.reload()
-    ElMessage.success('Configuration updated and reloaded successfully')
+    ElMessage.success('配置已更新并完成重载')
     confirmVisible.value = false
   } catch (err: any) {
-    ElMessage.error('Update failed: ' + err.message)
+    ElMessage.error('更新失败：' + err.message)
   } finally {
     uploading.value = false
   }
@@ -119,13 +119,11 @@ fetchData()
   overflow: hidden;
 }
 
-
 .page-header {
   @include flex-column;
   gap: $spacing-sm;
   margin-bottom: $spacing-sm;
 }
-
 
 .editor-header {
   display: flex;

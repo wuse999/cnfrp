@@ -42,8 +42,8 @@ const props = withDefaults(
     isMobile?: boolean
   }>(),
   {
-    confirmText: 'Confirm',
-    cancelText: 'Cancel',
+    confirmText: '确认',
+    cancelText: '取消',
     danger: false,
     loading: false,
     isMobile: false,

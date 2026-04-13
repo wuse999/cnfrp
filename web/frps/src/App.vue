@@ -7,7 +7,7 @@
             v-if="isMobile"
             class="hamburger-btn"
             @click="toggleSidebar"
-            aria-label="Toggle menu"
+            aria-label="切换菜单"
           >
             <span class="hamburger-icon">&#9776;</span>
           </button>
@@ -15,16 +15,16 @@
             <LogoIcon class="logo-icon" />
           </div>
           <span class="divider">/</span>
-          <span class="brand-name">frp</span>
-          <span class="badge server-badge">Server</span>
+          <span class="brand-name">cnfrp</span>
+          <span class="badge server-badge">服务端</span>
         </div>
 
         <div class="header-controls">
           <a
             class="github-link"
-            href="https://github.com/fatedier/frp"
+            href="https://github.com/wuse999/cnfrp"
             target="_blank"
-            aria-label="GitHub"
+            aria-label="GitHub 仓库"
           >
             <GitHubIcon class="github-icon" />
           </a>
@@ -40,7 +40,6 @@
     </header>
 
     <div class="layout">
-      <!-- Mobile overlay -->
       <div
         v-if="isMobile && sidebarOpen"
         class="sidebar-overlay"
@@ -58,7 +57,7 @@
             :class="{ active: route.path === '/' }"
             @click="closeSidebar"
           >
-            Overview
+            概览
           </router-link>
           <router-link
             to="/clients"
@@ -66,7 +65,7 @@
             :class="{ active: route.path.startsWith('/clients') }"
             @click="closeSidebar"
           >
-            Clients
+            客户端
           </router-link>
           <router-link
             to="/proxies"
@@ -78,7 +77,7 @@
             }"
             @click="closeSidebar"
           >
-            Proxies
+            代理
           </router-link>
         </nav>
       </aside>
@@ -113,7 +112,6 @@ const closeSidebar = () => {
   sidebarOpen.value = false
 }
 
-// Auto-close sidebar on route change
 watch(
   () => route.path,
   () => {
@@ -177,7 +175,6 @@ body {
   background-color: var(--content-bg);
 }
 
-/* Header */
 .header {
   flex-shrink: 0;
   background: var(--header-bg);
@@ -284,14 +281,12 @@ html.dark .theme-switch {
   color: #909399 !important;
 }
 
-/* Layout */
 .layout {
   flex: 1;
   display: flex;
   overflow: hidden;
 }
 
-/* Sidebar */
 .sidebar {
   width: var(--sidebar-width);
   flex-shrink: 0;
@@ -330,7 +325,6 @@ html.dark .theme-switch {
   font-weight: 500;
 }
 
-/* Hamburger button (mobile only) */
 .hamburger-btn {
   display: flex;
   align-items: center;
@@ -355,7 +349,6 @@ html.dark .theme-switch {
   color: var(--text-primary);
 }
 
-/* Mobile overlay */
 .sidebar-overlay {
   position: fixed;
   inset: 0;
@@ -363,7 +356,6 @@ html.dark .theme-switch {
   z-index: 99;
 }
 
-/* Content */
 #content {
   flex: 1;
   min-width: 0;
@@ -376,7 +368,6 @@ html.dark .theme-switch {
   margin: 0 auto;
 }
 
-/* Common page styles */
 .page-title {
   font-size: 20px;
   font-weight: 600;
@@ -390,7 +381,6 @@ html.dark .theme-switch {
   margin: 8px 0 0;
 }
 
-/* Element Plus global overrides */
 .el-button {
   font-weight: 500;
 }
@@ -417,7 +407,6 @@ html.dark .el-switch {
   border-radius: 8px;
 }
 
-/* Select overrides */
 .el-select__wrapper {
   border-radius: 8px !important;
   box-shadow: 0 0 0 1px var(--color-border-light, #e4e7ed) inset !important;
@@ -452,7 +441,6 @@ html.dark .el-switch {
   font-weight: 500;
 }
 
-/* Input overrides */
 .el-input__wrapper {
   border-radius: 8px !important;
   box-shadow: 0 0 0 1px var(--color-border-light, #e4e7ed) inset !important;
@@ -467,14 +455,12 @@ html.dark .el-switch {
   box-shadow: 0 0 0 1px var(--color-border, #dcdfe6) inset !important;
 }
 
-/* Card overrides */
 .el-card {
   border-radius: 12px;
   border: 1px solid var(--color-border-light, #e4e7ed);
   transition: all 0.2s ease;
 }
 
-/* Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -489,7 +475,6 @@ html.dark .el-switch {
   border-radius: 3px;
 }
 
-/* Mobile */
 @media (max-width: 767px) {
   .header-content {
     padding: 0 16px;

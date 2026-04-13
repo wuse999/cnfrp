@@ -11,15 +11,15 @@
 
         <div class="card-meta">
           <span v-if="proxy.port" class="meta-item">
-            <span class="meta-label">Port:</span>
+            <span class="meta-label">端口:</span>
             <span class="meta-value">{{ proxy.port }}</span>
           </span>
           <span class="meta-item">
-            <span class="meta-label">Connections:</span>
+            <span class="meta-label">连接数:</span>
             <span class="meta-value">{{ proxy.conns }}</span>
           </span>
           <span class="meta-item" v-if="proxy.clientID">
-            <span class="meta-label">Client:</span>
+            <span class="meta-label">客户端:</span>
             <span class="meta-value">{{
               proxy.user ? `${proxy.user}.${proxy.clientID}` : proxy.clientID
             }}</span>
@@ -44,7 +44,7 @@
         </div>
 
         <div class="status-badge" :class="proxy.status">
-          {{ proxy.status }}
+          {{ displayStatus }}
         </div>
       </div>
     </div>
@@ -68,11 +68,21 @@ const route = useRoute()
 
 const proxyLink = computed(() => {
   const base = `/proxy/${props.proxy.name}`
-  // If we're on a client detail page, pass client info
   if (route.name === 'ClientDetail' && route.params.key) {
     return `${base}?from=client&client=${route.params.key}`
   }
   return base
+})
+
+const displayStatus = computed(() => {
+  switch (props.proxy.status) {
+    case 'online':
+      return '在线'
+    case 'offline':
+      return '离线'
+    default:
+      return props.proxy.status
+  }
 })
 </script>
 
@@ -102,7 +112,6 @@ const proxyLink = computed(() => {
   min-height: 80px;
 }
 
-/* Left Section */
 .card-left {
   display: flex;
   flex-direction: column;
@@ -160,7 +169,6 @@ const proxyLink = computed(() => {
   color: var(--el-text-color-regular);
 }
 
-/* Right Section */
 .card-right {
   display: flex;
   align-items: center;
@@ -207,7 +215,6 @@ const proxyLink = computed(() => {
   border-radius: 10px;
   font-size: 12px;
   font-weight: 500;
-  text-transform: capitalize;
 }
 
 .status-badge.online {
@@ -220,7 +227,6 @@ const proxyLink = computed(() => {
   color: var(--el-color-danger);
 }
 
-/* Mobile Responsive */
 @media (max-width: 768px) {
   .card-main {
     flex-direction: column;

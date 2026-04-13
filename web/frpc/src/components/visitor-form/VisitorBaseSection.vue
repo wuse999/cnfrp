@@ -1,18 +1,24 @@
 <template>
   <div v-if="!readonly" class="field-row three-col">
-    <el-form-item label="Name" prop="name" class="field-grow">
+    <el-form-item label="名称" prop="name" class="field-grow">
       <el-input v-model="form.name" :disabled="editing || readonly" placeholder="my-visitor" />
     </el-form-item>
-    <ConfigField label="Type" type="select" v-model="form.type" :disabled="editing"
-      :options="[{ label: 'STCP', value: 'stcp' }, { label: 'SUDP', value: 'sudp' }, { label: 'XTCP', value: 'xtcp' }]" prop="type" />
-    <el-form-item label="Enabled" class="switch-field">
+    <ConfigField
+      label="类型"
+      type="select"
+      v-model="form.type"
+      :disabled="editing"
+      :options="[{ label: 'STCP', value: 'stcp' }, { label: 'SUDP', value: 'sudp' }, { label: 'XTCP', value: 'xtcp' }]"
+      prop="type"
+    />
+    <el-form-item label="启用" class="switch-field">
       <el-switch v-model="form.enabled" size="small" />
     </el-form-item>
   </div>
   <div v-else class="field-row three-col">
-    <ConfigField label="Name" type="text" :model-value="form.name" readonly class="field-grow" />
-    <ConfigField label="Type" type="text" :model-value="form.type.toUpperCase()" readonly />
-    <ConfigField label="Enabled" type="switch" :model-value="form.enabled" readonly />
+    <ConfigField label="名称" type="text" :model-value="form.name" readonly class="field-grow" />
+    <ConfigField label="类型" type="text" :model-value="form.type.toUpperCase()" readonly />
+    <ConfigField label="启用" type="switch" :model-value="form.enabled" readonly />
   </div>
 </template>
 

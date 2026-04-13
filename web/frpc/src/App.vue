@@ -3,23 +3,23 @@
     <header class="header">
       <div class="header-content">
         <div class="brand-section">
-          <button v-if="isMobile" class="hamburger-btn" @click="toggleSidebar" aria-label="Toggle menu">
+          <button v-if="isMobile" class="hamburger-btn" @click="toggleSidebar" aria-label="切换菜单">
             <span class="hamburger-icon">&#9776;</span>
           </button>
           <div class="logo-wrapper">
             <LogoIcon class="logo-icon" />
           </div>
           <span class="divider">/</span>
-          <span class="brand-name">frp</span>
-          <span class="badge">Client</span>
+          <span class="brand-name">cnfrp</span>
+          <span class="badge">客户端</span>
         </div>
 
         <div class="header-controls">
           <a
             class="github-link"
-            href="https://github.com/fatedier/frp"
+            href="https://github.com/wuse999/cnfrp"
             target="_blank"
-            aria-label="GitHub"
+            aria-label="GitHub 仓库"
           >
             <GitHubIcon class="github-icon" />
           </a>
@@ -50,7 +50,7 @@
             :class="{ active: route.path.startsWith('/proxies') }"
             @click="closeSidebar"
           >
-            Proxies
+            代理
           </router-link>
           <router-link
             to="/visitors"
@@ -58,7 +58,7 @@
             :class="{ active: route.path.startsWith('/visitors') }"
             @click="closeSidebar"
           >
-            Visitors
+            访问端
           </router-link>
           <router-link
             to="/config"
@@ -66,7 +66,7 @@
             :class="{ active: route.path === '/config' }"
             @click="closeSidebar"
           >
-            Config
+            配置
           </router-link>
         </nav>
       </aside>

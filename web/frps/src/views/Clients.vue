@@ -3,8 +3,8 @@
     <div class="page-header">
       <div class="header-top">
         <div class="title-section">
-          <h1 class="page-title">Clients</h1>
-          <p class="page-subtitle">Manage connected clients and their status</p>
+          <h1 class="page-title">客户端</h1>
+          <p class="page-subtitle">管理已连接客户端及其在线状态</p>
         </div>
         <div class="status-tabs">
           <button
@@ -24,7 +24,7 @@
       <div class="search-section">
         <el-input
           v-model="searchText"
-          placeholder="Search clients..."
+          placeholder="搜索客户端..."
           :prefix-icon="Search"
           clearable
           class="search-input"
@@ -41,7 +41,7 @@
         />
       </div>
       <div v-else-if="!loading" class="empty-state">
-        <el-empty description="No clients found" />
+        <el-empty description="未找到客户端" />
       </div>
     </div>
   </div>
@@ -70,27 +70,24 @@ const stats = computed(() => {
 })
 
 const statusTabs = computed(() => [
-  { value: 'all' as const, label: 'All', count: stats.value.total },
-  { value: 'online' as const, label: 'Online', count: stats.value.online },
-  { value: 'offline' as const, label: 'Offline', count: stats.value.offline },
+  { value: 'all' as const, label: '全部', count: stats.value.total },
+  { value: 'online' as const, label: '在线', count: stats.value.online },
+  { value: 'offline' as const, label: '离线', count: stats.value.offline },
 ])
 
 const filteredClients = computed(() => {
   let result = clients.value
 
-  // Filter by status
   if (statusFilter.value === 'online') {
     result = result.filter((c) => c.online)
   } else if (statusFilter.value === 'offline') {
     result = result.filter((c) => !c.online)
   }
 
-  // Filter by search text
   if (searchText.value) {
     result = result.filter((c) => c.matchesFilter(searchText.value))
   }
 
-  // Sort: online first, then by display name
   result.sort((a, b) => {
     if (a.online !== b.online) {
       return a.online ? -1 : 1
@@ -109,7 +106,7 @@ const fetchData = async () => {
   } catch (error: any) {
     ElMessage({
       showClose: true,
-      message: 'Failed to fetch clients: ' + error.message,
+      message: '获取客户端失败：' + error.message,
       type: 'error',
     })
   } finally {
@@ -274,7 +271,6 @@ onUnmounted(() => {
   padding: 60px 0;
 }
 
-/* Dark mode adjustments */
 html.dark .status-tab {
   background: var(--el-bg-color-overlay);
 }

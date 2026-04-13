@@ -1,7 +1,5 @@
 <template>
-  <!-- Edit mode: use el-form-item for validation -->
   <el-form-item v-if="!readonly" :label="label" :prop="prop" :class="($attrs.class as string)">
-    <!-- text -->
     <el-input
       v-if="type === 'text'"
       :model-value="modelValue"
@@ -9,7 +7,6 @@
       :disabled="disabled"
       @update:model-value="$emit('update:modelValue', $event)"
     />
-    <!-- number -->
     <el-input
       v-else-if="type === 'number'"
       :model-value="modelValue != null ? String(modelValue) : ''"
@@ -17,7 +14,6 @@
       :disabled="disabled"
       @update:model-value="handleNumberInput($event)"
     />
-    <!-- switch -->
     <div v-else-if="type === 'switch'" class="config-field-switch-wrap">
       <el-switch
         :model-value="modelValue"
@@ -27,7 +23,6 @@
       />
       <span v-if="tip" class="config-field-switch-tip">{{ tip }}</span>
     </div>
-    <!-- select -->
     <PopoverMenu
       v-else-if="type === 'select'"
       :model-value="modelValue"
@@ -37,7 +32,7 @@
       selectable
       full-width
       filterable
-      :filter-placeholder="placeholder || 'Select...'"
+      :filter-placeholder="placeholder || '请选择...'"
       @update:model-value="$emit('update:modelValue', $event)"
     >
       <template #default="{ filterText }">
@@ -50,7 +45,6 @@
         </PopoverMenuItem>
       </template>
     </PopoverMenu>
-    <!-- password -->
     <el-input
       v-else-if="type === 'password'"
       :model-value="modelValue"
@@ -60,7 +54,6 @@
       show-password
       @update:model-value="$emit('update:modelValue', $event)"
     />
-    <!-- kv -->
     <KeyValueEditor
       v-else-if="type === 'kv'"
       :model-value="modelValue"
@@ -68,7 +61,6 @@
       :value-placeholder="valuePlaceholder"
       @update:model-value="$emit('update:modelValue', $event)"
     />
-    <!-- tags (string array) -->
     <StringListEditor
       v-else-if="type === 'tags'"
       :model-value="modelValue || []"
@@ -78,17 +70,14 @@
     <div v-if="tip && type !== 'switch'" class="config-field-tip">{{ tip }}</div>
   </el-form-item>
 
-  <!-- Readonly mode: plain display -->
   <div v-else class="config-field-readonly" :class="($attrs.class as string)">
     <div class="config-field-label">{{ label }}</div>
-    <!-- switch readonly -->
     <el-switch
       v-if="type === 'switch'"
       :model-value="modelValue"
       disabled
       size="small"
     />
-    <!-- kv readonly -->
     <KeyValueEditor
       v-else-if="type === 'kv'"
       :model-value="modelValue || []"
@@ -96,13 +85,11 @@
       :value-placeholder="valuePlaceholder"
       readonly
     />
-    <!-- tags readonly -->
     <StringListEditor
       v-else-if="type === 'tags'"
       :model-value="modelValue || []"
       readonly
     />
-    <!-- text/number/select/password readonly -->
     <el-input
       v-else
       :model-value="displayValue"
@@ -145,8 +132,8 @@ const props = withDefaults(
     options: () => [],
     min: undefined,
     max: undefined,
-    keyPlaceholder: 'Key',
-    valuePlaceholder: 'Value',
+    keyPlaceholder: '键',
+    valuePlaceholder: '值',
   },
 )
 
@@ -184,13 +171,13 @@ const filteredOptions = (filterText: string) => {
 }
 
 const displayValue = computed(() => {
-  if (props.modelValue == null || props.modelValue === '') return '—'
+  if (props.modelValue == null || props.modelValue === '') return '未配置'
   if (props.type === 'select') {
     const opt = props.options.find((o) => o.value === props.modelValue)
     return opt ? opt.label : String(props.modelValue)
   }
   if (props.type === 'password') {
-    return props.modelValue ? '••••••' : '—'
+    return props.modelValue ? '******' : '未配置'
   }
   return String(props.modelValue)
 })
