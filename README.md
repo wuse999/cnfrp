@@ -1,101 +1,126 @@
 # cnfrp
 
-`cnfrp` is a Chinese-localized distribution and follow-up evolution branch based on the official [`frp`](https://github.com/fatedier/frp) project.
+`cnfrp` 是基于官方 [`frp`](https://github.com/fatedier/frp) 项目进行汉化整理与后续功能迭代的兼容性分支。
 
-It keeps the core architecture and compatibility boundaries of `frp` while gradually improving:
+它当前不是一个“推倒重写”的新内核项目，而是在尽量保持 `frp` 现有兼容边界的前提下，逐步完成以下工作：
 
-- repository entry and release wording
-- Chinese-facing documentation and UI copy
-- dashboard experience for `frpc` and `frps`
-- follow-up automation, packaging, and deployment conventions
+- 仓库入口与发布口径收口
+- 中文文档与界面文案整理
+- `frpc` / `frps` 管理台汉化
+- 后续自动化构建、发布、部署规范化
 
-[English](README.md) | [简体中文](README_zh.md)
+[简体中文](README.md) | [English](README_en.md)
 
-## Project Positioning
+## 1. 项目定位
 
-`cnfrp` is not a full rewrite of `frp`.
+当前 `cnfrp` 的定位可以理解为：
 
-At the current stage, it is a compatibility-first branch focused on:
+- 以官方 `frp` 为上游基线
+- 以中文用户体验和首版独立发布为当前重点
+- 以后续功能迭代和部署落地为延伸方向
 
-- Chinese localization
-- repository and release cleanup
-- dashboard copy refinement
-- later feature iteration on top of the upstream baseline
+这意味着当前阶段最优先处理的，不是大规模重构协议层，而是：
 
-The following stay unchanged in the first phase:
+- 入口文档
+- Dashboard 可见文案
+- Release 与产物命名
+- 仓库协作与部署流程
 
-- program names: `frpc`, `frps`
-- Go module path and import path
-- config keys and API fields
-- protocol names and type values
+## 2. 当前明确不改的边界
 
-## Repository Roles
+为了保证兼容性，首轮改造默认不做以下改动：
 
-- GitHub main repository: <https://github.com/wuse999/cnfrp>
-- Gitee mirror repository: <https://gitee.com/frpnat/cnfrp>
-- Upstream repository: <https://github.com/fatedier/frp>
+- 不改程序名 `frpc` / `frps`
+- 不改 `go.mod` 和 import path
+- 不改配置字段 key
+- 不改 API 字段名
+- 不改协议值和类型值
 
-Current branch convention:
+换句话说，当前是“展示层和对外口径先收口”，不是“协议层全面改名”。
 
-- `dev`: active working branch for `cnfrp`
-- release branch/tag strategy: to be stabilized during the first public release cycle
+## 3. 仓库关系
 
-## Current Status
+- GitHub 主仓：<https://github.com/wuse999/cnfrp>
+- Gitee 镜像仓：<https://gitee.com/frpnat/cnfrp>
+- 官方上游：<https://github.com/fatedier/frp>
 
-The project is currently in the first localization and release-preparation cycle.
+当前建议理解方式：
 
-Current priorities:
+- GitHub 作为主开发与主发布仓库
+- Gitee 作为国内访问与镜像分发仓库
+- 上游 `frp` 继续作为能力基线和更新来源
 
-1. clean up repository entry wording
-2. localize the `frpc` and `frps` dashboards
-3. align release/package/deployment conventions
-4. prepare the first usable `cnfrp` release
+## 4. 当前阶段状态
 
-## What You Can Use Today
+项目当前处于首轮汉化、首版发布和首版部署完成后的稳定化阶段。
 
-If you are already familiar with `frp`, you can continue using `cnfrp` with the same core concepts:
+当前优先级顺序：
 
-- `frps` remains the server program
-- `frpc` remains the client program
-- existing config structure stays compatible in the current phase
+1. 继续完善中文仓库入口与运维文档
+2. 继续验证 `frpc` / `frps` 实际对接链路
+3. 统一发布口径、产物命名和部署约定
+4. 在当前兼容基线上继续后续功能迭代
 
-Reference locations in this repository:
+当前主开发分支：
 
-- examples: [`conf/`](conf)
-- supporting docs/assets: [`doc/`](doc)
-- web dashboards: [`web/`](web)
+- `main`
 
-## Documentation Strategy
+## 5. 现在可以怎么用
 
-The repository entry is being rewritten for `cnfrp`.
+如果你原本就熟悉 `frp`，当前阶段可以继续沿用原有核心使用方式：
 
-During the transition period:
+- `frps` 仍然是服务端程序
+- `frpc` 仍然是客户端程序
+- 当前首轮改造不主动破坏既有配置结构
 
-- `cnfrp`-specific repository and release guidance is maintained here
-- detailed feature behavior and upstream architecture references still rely on official `frp` materials when not yet localized
+仓库内可直接参考的位置：
 
-Useful upstream references:
+- 配置示例：[`conf/`](conf)
+- 附带文档与图片：[`doc/`](doc)
+- Web 管理台：[`web/`](web)
 
-- upstream README: <https://github.com/fatedier/frp>
-- upstream docs site: <https://gofrp.org>
+## 6. 文档说明
 
-## Feedback
+当前仓库入口文档已经按 `cnfrp` 口径收口，但更完整的功能级说明仍在逐步整理中。
 
-For `cnfrp` repository wording, localization, release flow, and downstream adaptation issues, please use:
+在过渡阶段，建议这样理解：
 
-- GitHub Issues: <https://github.com/wuse999/cnfrp/issues>
-- Gitee Issues: <https://gitee.com/frpnat/cnfrp/issues>
+- `cnfrp` 仓库首页负责说明“它是什么、当前做到哪一步、仓库怎么用”
+- 更细的功能行为、架构背景和部分配置说明，必要时仍参考官方 `frp`
 
-If your issue is clearly an upstream `frp` core behavior issue, it may still need to be checked against the upstream project.
+可参考的上游资料：
 
-## Upstream Attribution
+- 官方仓库 README：<https://github.com/fatedier/frp>
+- 官方文档站：<https://gofrp.org>
 
-`cnfrp` is based on the official `frp` project by `fatedier` and contributors.
+## 7. 问题反馈
 
-This repository does not remove upstream attribution. It keeps the upstream relationship explicit and preserves the original license obligations.
+如果问题属于以下范围，建议优先在 `cnfrp` 仓库反馈：
 
-## License
+- 汉化问题
+- 仓库入口文案问题
+- Release 文案和产物命名问题
+- `cnfrp` 的发布、同步、部署约定问题
 
-`cnfrp` continues to use the Apache-2.0 license inherited from the upstream project.
+反馈入口：
 
-See [LICENSE](LICENSE) for details.
+- GitHub Issues：<https://github.com/wuse999/cnfrp/issues>
+- Gitee Issues：<https://gitee.com/frpnat/cnfrp/issues>
+
+如果确认属于上游 `frp` 内核行为问题，后续再结合官方仓库进一步判断。
+
+## 8. 上游归属说明
+
+`cnfrp` 基于官方 `frp` 项目进行整理和延伸，不会去除上游归属信息。
+
+当前仓库保留以下基本原则：
+
+- 明确保留与上游 `frp` 的关系
+- 不删除许可证义务
+- 不把汉化改造做成“去来源化”
+
+## 9. 许可证
+
+`cnfrp` 当前继续沿用上游项目的 Apache-2.0 许可证。
+
+详情见 [LICENSE](LICENSE)。

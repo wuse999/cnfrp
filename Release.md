@@ -30,7 +30,7 @@
 
 ### 1. 仓库入口与文档
 
-- 重写 `README.md`、`README_zh.md` 和 `Release.md` 的对外描述
+- 重写 `README.md`、`README_en.md` 和 `Release.md` 的对外描述
 - 明确 GitHub 为主发布仓、Gitee 为镜像仓
 - 保留与官方 `frp` 的关系说明和许可证信息
 
