@@ -128,6 +128,7 @@
 如果你需要中文部署咨询、定制接入支持或商用环境协助，可以访问：
 
 - FRPNAT：<https://www.frpnat.com>
+- 技术支持邮箱：<mailto:admin@frpnat.com>
 
 这里更适合处理：
 
