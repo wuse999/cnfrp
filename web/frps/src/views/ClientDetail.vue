@@ -50,7 +50,7 @@
               <span class="info-value">{{ totalConnections }}</span>
             </div>
             <div class="info-item">
-              <span class="info-label">Run ID</span>
+              <span class="info-label">运行 ID</span>
               <span class="info-value">{{ client.runID }}</span>
             </div>
             <div class="info-item">

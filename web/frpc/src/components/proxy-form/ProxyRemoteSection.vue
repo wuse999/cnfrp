@@ -13,7 +13,7 @@
       <ConfigField v-if="form.type !== 'tcpmux'" label="子域名" type="text"
         v-model="form.subdomain" placeholder="test" :readonly="readonly" />
       <ConfigField v-if="form.type === 'tcpmux'" label="复用器" type="select"
-        v-model="form.multiplexer" :options="[{ label: 'HTTP CONNECT', value: 'httpconnect' }]" :readonly="readonly" />
+        v-model="form.multiplexer" :options="[{ label: 'HTTP CONNECT 复用', value: 'httpconnect' }]" :readonly="readonly" />
     </div>
   </template>
 </template>

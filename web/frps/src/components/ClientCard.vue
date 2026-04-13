@@ -27,6 +27,7 @@
         </div>
         <span class="meta-item activity">
           <el-icon class="activity-icon"><DataLine /></el-icon>
+          <span class="meta-label">最近活动</span>
           <span class="meta-value">{{
             client.online ? client.lastConnectedAgo : client.disconnectedAgo
           }}</span>

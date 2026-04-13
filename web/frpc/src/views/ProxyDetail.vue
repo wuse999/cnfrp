@@ -128,7 +128,7 @@ onMounted(async () => {
 })
 
 const displaySource = computed(() =>
-  isStore.value ? 'Store' : '配置文件',
+  isStore.value ? '存储' : '配置文件',
 )
 
 const displayStatus = computed(() => {

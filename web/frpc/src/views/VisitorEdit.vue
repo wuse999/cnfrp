@@ -9,7 +9,7 @@
       <div class="header-actions">
         <ActionButton variant="outline" size="small" @click="goBack">取消</ActionButton>
         <ActionButton size="small" :loading="saving" @click="handleSave">
-          {{ isEditing ? '更新' : '创建' }}
+          {{ isEditing ? '保存修改' : '创建访问端' }}
         </ActionButton>
       </div>
     </div>
@@ -29,7 +29,7 @@
     <ConfirmDialog
       v-model="leaveDialogVisible"
       title="未保存的更改"
-      message="当前内容尚未保存，确认离开吗？"
+      message="当前内容尚未保存，确认离开编辑页吗？"
       :is-mobile="isMobile"
       @confirm="handleLeaveConfirm"
       @cancel="handleLeaveCancel"
@@ -182,7 +182,7 @@ const handleSave = async () => {
     const data = formToStoreVisitor(form.value)
     if (isEditing.value) {
       await visitorStore.updateVisitor(form.value.name, data)
-      ElMessage.success('访问端已更新')
+      ElMessage.success('访问端修改已保存')
     } else {
       await visitorStore.createVisitor(data)
       ElMessage.success('访问端已创建')
@@ -190,7 +190,7 @@ const handleSave = async () => {
     formSaved.value = true
     router.push('/visitors')
   } catch (err: any) {
-    ElMessage.error('操作失败：' + (err.message || '未知错误'))
+    ElMessage.error('保存失败：' + (err.message || '未知错误'))
   } finally {
     saving.value = false
   }

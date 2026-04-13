@@ -4,7 +4,7 @@
       <el-input
         v-model="form.name"
         :disabled="editing || readonly"
-        placeholder="my-proxy"
+        placeholder="例如：web-ssh"
       />
     </el-form-item>
     <ConfigField

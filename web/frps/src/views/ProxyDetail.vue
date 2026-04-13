@@ -156,7 +156,7 @@
                 <el-icon><Tickets /></el-icon>
               </div>
               <div class="config-item-content">
-                <span class="config-item-label">Host 重写</span>
+                <span class="config-item-label">Host 请求头重写</span>
                 <span class="config-item-value">{{
                   proxy.hostHeaderRewrite
                 }}</span>
@@ -169,7 +169,11 @@
               </div>
               <div class="config-item-content">
                 <span class="config-item-label">复用器</span>
-                <span class="config-item-value">{{ proxy.multiplexer }}</span>
+                <span class="config-item-value">{{
+                  proxy.multiplexer === 'httpconnect'
+                    ? 'HTTP CONNECT 复用'
+                    : proxy.multiplexer
+                }}</span>
               </div>
             </div>
 

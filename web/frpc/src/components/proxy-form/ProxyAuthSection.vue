@@ -10,7 +10,7 @@
     <template v-if="['stcp', 'sudp', 'xtcp'].includes(form.type)">
       <div class="field-row two-col">
         <ConfigField label="密钥" type="password" v-model="form.secretKey" prop="secretKey" :readonly="readonly" />
-        <ConfigField label="允许用户" type="tags" v-model="form.allowUsers" placeholder="username" :readonly="readonly" />
+        <ConfigField label="允许用户" type="tags" v-model="form.allowUsers" placeholder="输入允许访问的用户名" :readonly="readonly" />
       </div>
     </template>
   </ConfigSection>

@@ -75,7 +75,7 @@ router.beforeEach(async (to) => {
     return true
   }
 
-  ElMessage.warning('Store 未启用，请先在 frpc 配置中开启 Store 后再创建或编辑条目。')
+  ElMessage.warning('存储功能未启用，请先在 frpc 配置中启用存储后再创建或编辑条目。')
   return { name: 'ProxyList' }
 })
 

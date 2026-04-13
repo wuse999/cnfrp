@@ -26,7 +26,7 @@
       <div class="field-row two-col">
         <ConfigField label="本地地址" type="text" v-model="form.pluginConfig.localAddr" placeholder="127.0.0.1:8080" :readonly="readonly" />
         <ConfigField v-if="['http2https', 'https2http', 'https2https', 'http2http'].includes(form.pluginType)"
-          label="Host Header 重写" type="text" v-model="form.pluginConfig.hostHeaderRewrite" :readonly="readonly" />
+          label="Host 请求头重写" type="text" v-model="form.pluginConfig.hostHeaderRewrite" :readonly="readonly" />
         <div v-else></div>
       </div>
     </template>
@@ -66,7 +66,7 @@
       </div>
     </template>
     <template v-if="form.pluginType === 'unix_domain_socket'">
-      <ConfigField label="Unix Socket 路径" type="text" v-model="form.pluginConfig.unixPath" placeholder="/tmp/socket.sock" :readonly="readonly" />
+      <ConfigField label="Unix 套接字路径" type="text" v-model="form.pluginConfig.unixPath" placeholder="/tmp/socket.sock" :readonly="readonly" />
     </template>
   </template>
 </template>

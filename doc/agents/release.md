@@ -9,11 +9,11 @@ Current `cnfrp` release strategy:
 - Release archives use the `cnfrp` package prefix
 - Binary names remain `frpc` and `frps` for compatibility
 
-Current prerelease drill target:
+Current first stable target:
 
-- version: `v0.68.0-cnfrp.1-beta.1`
-- branch: `dev`
-- purpose: packaging verification and prerelease process rehearsal
+- version: `v0.68.0-cnfrp.1`
+- branch: `main`
+- purpose: first stable release based on the completed Chinese UI and release-chain closure
 
 ## 2. Update Release Notes
 
@@ -24,8 +24,8 @@ Recommended minimum fields:
 ```markdown
 ## 版本信息
 - 项目：cnfrp
-- 版本：v0.68.0-cnfrp.1-beta.1
-- 发布类型：Beta
+- 版本：v0.68.0-cnfrp.1
+- 发布类型：Stable
 
 ## 本次重点
 - ...
@@ -42,45 +42,39 @@ This file is used by GoReleaser as the GitHub Release body.
 Update `pkg/util/version/version.go`:
 
 ```go
-var version = "0.68.0-cnfrp.1-beta.1"
+var version = "0.68.0-cnfrp.1"
 ```
 
-Commit and push to `dev` after packaging verification is complete:
+Commit and push to `main` after release preparation is complete:
 
 ```bash
 git add pkg/util/version/version.go Release.md .goreleaser.yml package.sh
-git commit -m "release: prepare v0.68.0-cnfrp.1-beta.1"
-git push origin dev
+git commit -m "release: prepare v0.68.0-cnfrp.1"
+git push origin main
 ```
 
 ## 4. Prepare Release Branch State
 
 Recommended current flow:
 
-1. Complete all code and document changes on `dev`
+1. Complete all code and document changes on `main`
 2. Verify web builds and package generation
-3. Rehearse the prerelease process locally
+3. Rehearse the final release process locally on Ubuntu
 4. Push to GitHub `origin`
 5. Mirror to Gitee after GitHub state is confirmed
 
-At the current stage, `dev` remains the working release branch.
+At the current stage, `main` is the working release branch.
 
 ## 5. Tag the Release
 
-Recommended prerelease tag:
+Recommended first stable tag:
 
 ```bash
-git checkout dev
-git pull origin dev
-git tag -a v0.68.0-cnfrp.1-beta.1 -m "release v0.68.0-cnfrp.1-beta.1"
-git push origin v0.68.0-cnfrp.1-beta.1
-```
-
-Recommended first stable tag after validation:
-
-```bash
+git checkout main
+git pull --ff-only origin main
 git tag -a v0.68.0-cnfrp.1 -m "release v0.68.0-cnfrp.1"
 git push origin v0.68.0-cnfrp.1
+git push gitee v0.68.0-cnfrp.1
 ```
 
 ## 6. Trigger GoReleaser
@@ -88,7 +82,7 @@ git push origin v0.68.0-cnfrp.1
 Manually trigger the `goreleaser` workflow in GitHub Actions:
 
 ```bash
-gh workflow run goreleaser --ref dev
+gh workflow run goreleaser --ref main
 ```
 
 GoReleaser will:
@@ -105,7 +99,7 @@ GoReleaser will:
 After GitHub release is confirmed:
 
 ```bash
-git push gitee dev
+git push gitee main
 git push gitee --tags
 ```
 
@@ -115,8 +109,8 @@ Gitee is a mirror, not the primary release source.
 
 Archive naming examples:
 
-- `cnfrp_v0.68.0-cnfrp.1-beta.1_linux_amd64.tar.gz`
-- `cnfrp_v0.68.0-cnfrp.1-beta.1_windows_amd64.zip`
+- `cnfrp_v0.68.0-cnfrp.1_linux_amd64.tar.gz`
+- `cnfrp_v0.68.0-cnfrp.1_windows_amd64.zip`
 
 Checksum file:
 
@@ -142,5 +136,5 @@ Compatibility rules:
 
 - Primary release repository: `git@github.com:wuse999/cnfrp.git`
 - Mirror repository: `git@gitee.com:frpnat/cnfrp.git`
-- Current prerelease drill version: `v0.68.0-cnfrp.1-beta.1`
-- Recommended first stable version: `v0.68.0-cnfrp.1`
+- Current first stable target: `v0.68.0-cnfrp.1`
+- Historical prerelease drill version: `v0.68.0-cnfrp.1-beta.1`

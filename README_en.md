@@ -1,101 +1,150 @@
 # cnfrp
 
-`cnfrp` is a Chinese-localized distribution and follow-up evolution branch based on the official [`frp`](https://github.com/fatedier/frp) project.
+`cnfrp` is a compatibility-focused branch based on the official [`frp`](https://github.com/fatedier/frp) project, with ongoing work around Chinese localization, release cleanup, and downstream maintenance.
 
-It keeps the core architecture and compatibility boundaries of `frp` while gradually improving:
-
-- repository entry and release wording
-- Chinese-facing documentation and UI copy
-- dashboard experience for `frpc` and `frps`
-- follow-up automation, packaging, and deployment conventions
+It is not a full rewrite of the upstream core. Instead, it keeps the main compatibility boundaries of `frp` while improving the user-facing repository entry, dashboard wording, release flow, and deployment experience for Chinese-speaking users.
 
 [English](README_en.md) | [简体中文](README.md)
 
-## Project Positioning
+## Project Scope
 
-`cnfrp` is not a full rewrite of `frp`.
+At the current stage, `cnfrp` focuses on three things:
 
-At the current stage, it is a compatibility-first branch focused on:
+- making the `frpc` and `frps` web dashboards more usable for Chinese users
+- keeping the core compatibility boundaries of upstream `frp`
+- gradually standardizing build, packaging, release, and deployment workflows
 
-- Chinese localization
-- repository and release cleanup
-- dashboard copy refinement
-- later feature iteration on top of the upstream baseline
+This means the current focus is on:
 
-The following stay unchanged in the first phase:
+- documentation and UI wording cleanup
+- release/package naming cleanup
+- repository collaboration and deployment conventions
 
-- program names: `frpc`, `frps`
-- Go module path and import path
-- config keys and API fields
-- protocol names and type values
+It is not currently focused on large protocol-layer refactors or renaming core binaries and config structures.
+
+## Compliance Notice
+
+This repository is a compatibility branch for a general-purpose networking tool and should only be used in lawful, authorized, and compliant scenarios.
+
+- users are responsible for ensuring their usage complies with local laws, regulations, and network policies
+- this repository does not provide public relay nodes or bypass services
+- if you use it in production, commercial, or public network environments, you should handle your own security, access control, compliance, and operations review
+
+## Current Features
+
+Compared with using the upstream repository directly, `cnfrp` currently includes or is actively improving:
+
+- Chinese cleanup of repository entry pages and release wording
+- Chinese localization of the main `frpc` / `frps` dashboard paths
+- dual-repository release wording for GitHub and Gitee
+- Ubuntu-based build, packaging, prerelease, and deployment conventions
+
+Compatibility boundaries intentionally kept unchanged:
+
+- binary names stay `frpc` / `frps`
+- `go.mod` and import paths stay unchanged
+- config keys stay unchanged
+- API field names stay unchanged
+- protocol names and type values stay unchanged
+
+If you already use upstream `frp`, you can usually migrate to `cnfrp` without changing your main configuration habits.
+
+## Quick Start
+
+### 1. Get the binaries
+
+- GitHub Releases: <https://github.com/wuse999/cnfrp/releases>
+- Gitee mirror: <https://gitee.com/frpnat/cnfrp>
+
+If you prefer to build from source, use this repository directly.
+
+### 2. Start the server
+
+```bash
+./frps -c ./frps.toml
+```
+
+### 3. Start the client
+
+```bash
+./frpc -c ./frpc.toml
+```
+
+### 4. Config references
+
+- server example: [conf/frps.toml](conf/frps.toml)
+- full server example: [conf/frps_full_example.toml](conf/frps_full_example.toml)
+- client example: [conf/frpc.toml](conf/frpc.toml)
+- full client example: [conf/frpc_full_example.toml](conf/frpc_full_example.toml)
+
+For complete feature behavior, the upstream docs site is still the best reference: <https://gofrp.org>
 
 ## Repository Roles
 
-- GitHub main repository: <https://github.com/wuse999/cnfrp>
+- GitHub primary repository: <https://github.com/wuse999/cnfrp>
 - Gitee mirror repository: <https://gitee.com/frpnat/cnfrp>
-- Upstream repository: <https://github.com/fatedier/frp>
+- upstream repository: <https://github.com/fatedier/frp>
 
-Current branch convention:
+Recommended interpretation:
 
-- `main`: default working branch for `cnfrp`
-- release branch/tag strategy: stabilized around the first public release flow
+- GitHub is the primary development and release repository
+- Gitee is the mirror and distribution repository for domestic access
+- upstream `frp` remains the baseline for capabilities and future sync work
 
 ## Current Status
 
-The project is currently in its first localization, release, and deployment stabilization cycle.
+The project is currently in the stage of post-localization stabilization, release cleanup, and first public release preparation.
 
-Current priorities:
+Current main branch:
 
-1. keep refining repository entry wording and operations docs
-2. continue validating real `frpc` and `frps` connectivity flows
-3. keep release/package/deployment conventions aligned
-4. prepare the next stable `cnfrp` iteration on top of the current baseline
+- `main`
 
-## What You Can Use Today
+Current execution baseline:
 
-If you are already familiar with `frp`, you can continue using `cnfrp` with the same core concepts:
-
-- `frps` remains the server program
-- `frpc` remains the client program
-- existing config structure stays compatible in the current phase
-
-Reference locations in this repository:
-
-- examples: [`conf/`](conf)
-- supporting docs/assets: [`doc/`](doc)
-- web dashboards: [`web/`](web)
-
-## Documentation Strategy
-
-The repository entry has already been rewritten for `cnfrp`, while deeper feature documentation is still being refined.
-
-During the transition period:
-
-- this repository explains what `cnfrp` is, where the project currently stands, and how the repo is organized
-- detailed feature behavior and upstream architecture references may still rely on official `frp` materials when not yet localized
-
-Useful upstream references:
-
-- upstream README: <https://github.com/fatedier/frp>
-- upstream docs site: <https://gofrp.org>
+- formal Git, build, packaging, and release actions are based on the Ubuntu main worktree
+- Windows is mainly used as the IDE, remote development, and review entry
+- the Hong Kong server is used for deployment, verification, and rollback
 
 ## Feedback
 
-For `cnfrp` repository wording, localization, release flow, and downstream adaptation issues, please use:
+If your issue belongs to one of the following categories, please report it in `cnfrp` first:
+
+- incomplete or inconsistent localization
+- README / Release / repository-entry wording problems
+- package naming or release-flow issues
+- deployment, sync, or collaboration conventions specific to `cnfrp`
+
+Feedback channels:
 
 - GitHub Issues: <https://github.com/wuse999/cnfrp/issues>
 - Gitee Issues: <https://gitee.com/frpnat/cnfrp/issues>
 
-If your issue is clearly an upstream `frp` core behavior issue, it may still need to be checked against the upstream project.
+If the issue is clearly about upstream `frp` core behavior, it should then be checked against the upstream project:
 
-## Upstream Attribution
+- <https://github.com/fatedier/frp>
 
-`cnfrp` is based on the official `frp` project by `fatedier` and contributors.
+## Support
 
-This repository does not remove upstream attribution. It keeps the upstream relationship explicit and preserves the original license obligations.
+If you need Chinese deployment guidance, integration assistance, or commercial environment support, you can visit:
 
-## License
+- FRPNAT: <https://www.frpnat.com>
 
-`cnfrp` continues to use the Apache-2.0 license inherited from the upstream project.
+Typical support scenarios include:
 
-See [LICENSE](LICENSE) for details.
+- Chinese deployment guidance
+- private deployment assistance
+- commercial environment integration and operations support
+
+This repository README remains focused on the open-source project itself, with commercial support kept as a secondary entry point.
+
+## Upstream Attribution and License
+
+`cnfrp` is based on the official `frp` project and keeps upstream attribution explicit while continuing to comply with the Apache-2.0 license.
+
+Current principles:
+
+- keep the upstream relationship explicit
+- preserve original copyright and license obligations
+- avoid any “de-attribution” style repackaging
+
+License: [LICENSE](LICENSE)

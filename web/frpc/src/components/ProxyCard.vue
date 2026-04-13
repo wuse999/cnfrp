@@ -79,11 +79,11 @@ defineEmits<{
 }>()
 
 const displaySource = computed(() => {
-  return props.proxy.source === 'store' ? 'Store' : '配置文件'
+  return props.proxy.source === 'store' ? '存储' : '配置文件'
 })
 
 const localDisplay = computed(() => {
-  if (props.proxy.plugin) return `plugin:${props.proxy.plugin}`
+  if (props.proxy.plugin) return `插件：${props.proxy.plugin}`
   return props.proxy.local_addr || ''
 })
 

@@ -9,7 +9,7 @@
       <ConfigField label="带宽限制" type="text" v-model="form.bandwidthLimit" placeholder="1MB" tip="例如：1MB、500KB" :readonly="readonly" />
       <ConfigField label="带宽限制模式" type="select" v-model="form.bandwidthLimitMode"
         :options="[{ label: '客户端', value: 'client' }, { label: '服务端', value: 'server' }]" :readonly="readonly" />
-      <ConfigField label="Proxy Protocol 版本" type="select" v-model="form.proxyProtocolVersion"
+      <ConfigField label="代理协议版本" type="select" v-model="form.proxyProtocolVersion"
         :options="[{ label: '无', value: '' }, { label: 'v1', value: 'v1' }, { label: 'v2', value: 'v2' }]" :readonly="readonly" />
     </div>
   </ConfigSection>

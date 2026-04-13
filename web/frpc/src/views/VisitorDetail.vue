@@ -24,7 +24,7 @@
 
     <div v-if="notFound" class="not-found">
       <p class="empty-text">未找到访问端</p>
-      <p class="empty-hint">访问端“{{ visitorName }}”不存在。</p>
+      <p class="empty-hint">访问端“{{ visitorName }}”不存在，或已被移除。</p>
       <ActionButton variant="outline" @click="router.push('/visitors')">
         返回访问端列表
       </ActionButton>

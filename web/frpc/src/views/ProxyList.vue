@@ -11,7 +11,7 @@
       <div class="tab-bar">
         <div class="tab-buttons">
           <button class="tab-btn" :class="{ active: activeTab === 'status' }" @click="switchTab('status')">状态</button>
-          <button class="tab-btn" :class="{ active: activeTab === 'store' }" @click="switchTab('store')">Store</button>
+          <button class="tab-btn" :class="{ active: activeTab === 'store' }" @click="switchTab('store')">存储</button>
         </div>
         <div class="tab-actions">
           <ActionButton variant="outline" size="small" @click="refreshData">
@@ -38,7 +38,7 @@
       <!-- Store Tab Filters -->
       <template v-if="activeTab === 'store' && proxyStore.storeEnabled">
         <div class="filter-bar">
-          <el-input v-model="storeSearch" placeholder="搜索 Store 代理..." clearable class="search-input">
+          <el-input v-model="storeSearch" placeholder="搜索存储代理..." clearable class="search-input">
             <template #prefix><el-icon><Search /></el-icon></template>
           </el-input>
           <FilterDropdown v-model="storeTypeFilter" label="类型" :options="storeTypeOptions" :min-width="140" :is-mobile="isMobile" />
@@ -68,7 +68,7 @@
       <!-- Store Tab List -->
       <div v-if="activeTab === 'store'" v-loading="proxyStore.storeLoading">
         <div v-if="!proxyStore.storeEnabled" class="store-disabled">
-          <p>Store 尚未启用。请在 `frpc` 配置中加入以下内容：</p>
+          <p>存储功能尚未启用。请在 `frpc` 配置中加入以下内容：</p>
           <pre class="config-hint">[store]
 path = "./frpc_store.json"</pre>
         </div>
@@ -86,7 +86,7 @@ path = "./frpc_store.json"</pre>
             />
           </div>
           <div v-else class="empty-state">
-            <p class="empty-text">Store 中暂无代理</p>
+            <p class="empty-text">存储中暂无代理</p>
             <p class="empty-hint">点击“新建代理”即可添加一条代理配置。</p>
           </div>
         </template>
@@ -169,7 +169,7 @@ const sourceOptions = computed(() => {
   return Array.from(sources)
     .sort()
     .map((s) => ({
-      label: s === 'store' ? 'Store' : '配置文件',
+      label: s === 'store' ? '存储' : '配置文件',
       value: s,
     }))
 })

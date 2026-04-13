@@ -1,7 +1,7 @@
 <template>
   <div v-if="!readonly" class="field-row three-col">
     <el-form-item label="名称" prop="name" class="field-grow">
-      <el-input v-model="form.name" :disabled="editing || readonly" placeholder="my-visitor" />
+      <el-input v-model="form.name" :disabled="editing || readonly" placeholder="例如：stcp-visitor" />
     </el-form-item>
     <ConfigField
       label="类型"

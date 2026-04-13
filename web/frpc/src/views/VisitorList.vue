@@ -6,7 +6,7 @@
 
     <div class="tab-bar">
       <div class="tab-buttons">
-        <button class="tab-btn active">Store</button>
+        <button class="tab-btn active">存储</button>
       </div>
       <div class="tab-actions">
         <ActionButton variant="outline" size="small" @click="fetchData">
@@ -20,7 +20,7 @@
 
     <div v-loading="visitorStore.loading">
       <div v-if="!visitorStore.storeEnabled" class="store-disabled">
-        <p>Store 未启用。请在 frpc 配置中加入以下内容：</p>
+        <p>存储功能未启用。请在 frpc 配置中加入以下内容：</p>
         <pre class="config-hint">[store]
 path = "./frpc_store.json"</pre>
       </div>

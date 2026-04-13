@@ -43,7 +43,7 @@
       <div class="legend-item"><span class="dot out"></span> 出站流量</div>
     </div>
 
-    <el-empty v-else-if="!loading" description="暂无流量数据" />
+    <el-empty v-else-if="!loading" description="近 7 日暂无流量数据" />
   </div>
 </template>
 
@@ -110,7 +110,7 @@ const fetchData = () => {
     .catch((err) => {
       ElMessage({
         showClose: true,
-        message: '获取流量信息失败：' + err,
+        message: '获取近 7 日流量失败：' + err,
         type: 'warning',
       })
     })

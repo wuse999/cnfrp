@@ -32,7 +32,7 @@
           label="流量"
           :value="formatTrafficTotal()"
           type="traffic"
-          subtitle="今日总量"
+          subtitle="今日总流量"
         />
       </el-col>
     </el-row>
@@ -126,7 +126,7 @@
           <span class="config-value">{{ data.vhostHTTPSPort }}</span>
         </div>
         <div class="config-item" v-if="data.tcpmuxHTTPConnectPort != 0">
-          <span class="config-label">TCPMux 端口</span>
+          <span class="config-label">HTTP CONNECT 复用端口</span>
           <span class="config-value">{{ data.tcpmuxHTTPConnectPort }}</span>
         </div>
         <div class="config-item" v-if="data.subdomainHost != ''">
@@ -146,7 +146,7 @@
           <span class="config-value">{{ data.allowPortsStr }}</span>
         </div>
         <div class="config-item" v-if="data.tlsForce">
-          <span class="config-label">TLS 强制启用</span>
+          <span class="config-label">强制 TLS</span>
           <el-tag size="small" type="warning">已启用</el-tag>
         </div>
         <div class="config-item">
@@ -231,7 +231,7 @@ const fetchData = async () => {
   } catch {
     ElMessage({
       showClose: true,
-      message: '获取 frps 服务端信息失败。',
+      message: '获取服务端信息失败。',
       type: 'error',
     })
   }
