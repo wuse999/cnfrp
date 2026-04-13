@@ -43,6 +43,7 @@
 - GitHub 主仓：<https://github.com/wuse999/cnfrp>
 - Gitee 镜像仓：<https://gitee.com/frpnat/cnfrp>
 - 官方上游：<https://github.com/fatedier/frp>
+- FRPNAT汉化技术支持：<https://www.frpnat.com>
 
 当前建议理解方式：
 
@@ -106,6 +107,7 @@
 
 - GitHub Issues：<https://github.com/wuse999/cnfrp/issues>
 - Gitee Issues：<https://gitee.com/frpnat/cnfrp/issues>
+- 玥菲特汉化技术咨询FRPNAT：<https://www.frpnat.com>
 
 如果确认属于上游 `frp` 内核行为问题，后续再结合官方仓库进一步判断。
 

@@ -3,7 +3,12 @@
     <header class="header">
       <div class="header-content">
         <div class="brand-section">
-          <button v-if="isMobile" class="hamburger-btn" @click="toggleSidebar" aria-label="切换菜单">
+          <button
+            v-if="isMobile"
+            class="hamburger-btn"
+            @click="toggleSidebar"
+            aria-label="切换菜单"
+          >
             <span class="hamburger-icon">&#9776;</span>
           </button>
           <div class="logo-wrapper">
@@ -16,12 +21,38 @@
 
         <div class="header-controls">
           <a
-            class="github-link"
+            class="header-link"
+            href="https://www.frpnat.com"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="FRPNAT 官网"
+            title="FRPNAT 官网"
+          >
+            <span class="header-link-badge" aria-hidden="true">F</span>
+          </a>
+          <a
+            class="header-link"
+            href="https://gitee.com/frpnat/cnfrp"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Gitee 仓库"
+            title="Gitee 仓库"
+          >
+            <img
+              class="header-link-image"
+              src="https://gitee.com/favicon.ico"
+              alt="Gitee"
+            />
+          </a>
+          <a
+            class="header-link"
             href="https://github.com/wuse999/cnfrp"
             target="_blank"
+            rel="noreferrer"
             aria-label="GitHub 仓库"
+            title="GitHub 仓库"
           >
-            <GitHubIcon class="github-icon" />
+            <GitHubIcon class="header-link-icon" />
           </a>
           <el-switch
             v-model="isDark"
@@ -35,7 +66,6 @@
     </header>
 
     <div class="layout">
-      <!-- Mobile overlay -->
       <div
         v-if="isMobile && sidebarOpen"
         class="sidebar-overlay"
@@ -58,7 +88,7 @@
             :class="{ active: route.path.startsWith('/visitors') }"
             @click="closeSidebar"
           >
-            访问端
+            访问者
           </router-link>
           <router-link
             to="/config"
@@ -75,6 +105,18 @@
         <router-view></router-view>
       </main>
     </div>
+
+    <footer class="app-footer">
+      <span class="app-footer-label">汉化技术支持：</span>
+      <a
+        class="app-footer-link"
+        href="https://www.frpnat.com"
+        target="_blank"
+        rel="noreferrer"
+      >
+        FRPNAT
+      </a>
+    </footer>
   </div>
 </template>
 
@@ -101,12 +143,14 @@ const closeSidebar = () => {
   sidebarOpen.value = false
 }
 
-// Auto-close sidebar on route change
-watch(() => route.path, () => {
-  if (isMobile.value) {
-    closeSidebar()
-  }
-})
+watch(
+  () => route.path,
+  () => {
+    if (isMobile.value) {
+      closeSidebar()
+    }
+  },
+)
 </script>
 
 <style lang="scss">
@@ -123,7 +167,8 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   overflow: hidden;
 }
@@ -136,7 +181,6 @@ html, body {
   background-color: $color-bg-secondary;
 }
 
-// Header
 .header {
   flex-shrink: 0;
   background: $color-bg-primary;
@@ -196,13 +240,14 @@ html, body {
   gap: 16px;
 }
 
-.github-link {
+.header-link {
   @include flex-center;
   width: 28px;
   height: 28px;
   border-radius: $radius-sm;
   color: $color-text-secondary;
   transition: all $transition-fast;
+  text-decoration: none;
 
   &:hover {
     background: $color-bg-hover;
@@ -210,9 +255,33 @@ html, body {
   }
 }
 
-.github-icon {
+.header-link-icon {
   width: 18px;
   height: 18px;
+}
+
+.header-link-image {
+  width: 18px;
+  height: 18px;
+  display: block;
+  border-radius: 4px;
+}
+
+.header-link-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  background: linear-gradient(135deg, #7cc7ff 0%, #0d47b8 100%);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  font-family: ui-sans-serif, -apple-system, system-ui, Segoe UI, Helvetica,
+    Arial, sans-serif;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
 }
 
 .theme-switch {
@@ -229,11 +298,81 @@ html.dark .theme-switch {
   color: #909399 !important;
 }
 
-// Layout
 .layout {
   flex: 1;
   display: flex;
   overflow: hidden;
+}
+
+.app-footer {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 10px 16px;
+  border-top: 1px solid $color-border-light;
+  background: $color-bg-primary;
+  color: $color-text-muted;
+  font-size: $font-size-sm;
+}
+
+.app-footer-label {
+  color: $color-text-muted;
+  font-weight: $font-weight-semibold;
+  letter-spacing: 0.04em;
+}
+
+.app-footer-link {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 96px;
+  min-height: 30px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #7cc7ff 0%, #0d47b8 100%);
+  color: #fff;
+  font-size: $font-size-sm;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  box-shadow:
+    0 6px 18px rgba(13, 71, 184, 0.25),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+  animation: frpnat-support-glow 2.6s ease-in-out infinite;
+  transition:
+    transform $transition-fast,
+    box-shadow $transition-fast,
+    filter $transition-fast;
+
+  &:hover {
+    text-decoration: none;
+    transform: translateY(-1px);
+    filter: brightness(1.03);
+    box-shadow:
+      0 10px 24px rgba(13, 71, 184, 0.32),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.24);
+  }
+}
+
+@keyframes frpnat-support-glow {
+  0%,
+  100% {
+    box-shadow:
+      0 6px 18px rgba(13, 71, 184, 0.24),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+    transform: translateY(0);
+  }
+
+  50% {
+    box-shadow:
+      0 10px 26px rgba(13, 71, 184, 0.34),
+      0 0 0 6px rgba(124, 199, 255, 0.12),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.22);
+    transform: translateY(-1px);
+  }
 }
 
 .sidebar {
@@ -272,7 +411,6 @@ html.dark .theme-switch {
   }
 }
 
-// Hamburger button (mobile only)
 .hamburger-btn {
   @include flex-center;
   width: 36px;
@@ -295,7 +433,6 @@ html.dark .theme-switch {
   color: $color-text-primary;
 }
 
-// Mobile overlay
 .sidebar-overlay {
   position: fixed;
   inset: 0;
@@ -310,7 +447,6 @@ html.dark .theme-switch {
   background: $color-bg-primary;
 }
 
-// Common page styles
 .page-title {
   font-size: $font-size-xl + 2px;
   font-weight: $font-weight-semibold;
@@ -368,7 +504,6 @@ html.dark .theme-switch {
   }
 }
 
-// Element Plus global overrides
 .el-button {
   font-weight: $font-weight-medium;
 }
@@ -401,7 +536,6 @@ html.dark .el-switch {
   border-radius: $radius-md;
 }
 
-// Select overrides
 .el-select__wrapper {
   border-radius: $radius-md !important;
   box-shadow: 0 0 0 1px $color-border-light inset !important;
@@ -419,8 +553,9 @@ html.dark .el-switch {
 .el-select-dropdown {
   border-radius: 12px !important;
   border: 1px solid $color-border-light !important;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1),
-              0 8px 10px -6px rgba(0, 0, 0, 0.1) !important;
+  box-shadow:
+    0 10px 25px -5px rgba(0, 0, 0, 0.1),
+    0 8px 10px -6px rgba(0, 0, 0, 0.1) !important;
   padding: 4px !important;
 }
 
@@ -435,7 +570,6 @@ html.dark .el-switch {
   }
 }
 
-// Input overrides
 .el-input__wrapper {
   border-radius: $radius-md !important;
   box-shadow: 0 0 0 1px $color-border-light inset !important;
@@ -450,7 +584,6 @@ html.dark .el-switch {
   }
 }
 
-// Status pill (shared)
 .status-pill {
   display: inline-flex;
   align-items: center;
@@ -489,10 +622,13 @@ html.dark .el-switch {
   }
 }
 
-// Mobile
 @include mobile {
   .header-content {
     padding: 0 $spacing-lg;
+  }
+
+  .header-controls {
+    gap: 10px;
   }
 
   .sidebar {
@@ -520,9 +656,13 @@ html.dark .el-switch {
     width: 100%;
   }
 
-  // Select dropdown overflow prevention
   .el-select-dropdown {
     max-width: calc(100vw - 32px);
+  }
+
+  .app-footer {
+    padding: 10px 12px;
+    text-align: center;
   }
 }
 </style>

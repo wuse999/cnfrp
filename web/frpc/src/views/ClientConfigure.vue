@@ -9,7 +9,7 @@
     <div class="editor-header">
       <div class="header-left">
         <a
-          href="https://github.com/fatedier/frp#configuration-files"
+          href="https://www.frpnat.com"
           target="_blank"
           class="docs-link"
         >
@@ -30,7 +30,10 @@
         placeholder="# 在此填写 frpc 配置文件内容...
 
 serverAddr = &quot;127.0.0.1&quot;
-serverPort = 7000"
+serverPort = 7000
+
+[store]
+path = &quot;./frpc_store.json&quot;"
         class="code-editor"
       ></el-input>
     </div>
