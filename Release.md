@@ -61,6 +61,12 @@
 - 正式 Git、构建、打包、Tag 与发布统一在 Ubuntu 主工作树执行
 - 首版 `frps` 已按既定方案部署到香港服务器并完成面板可用性验证
 
+### 6. 上游 `v0.68.1` 已承接修复点
+
+- 修复 `type = "http"` 代理在 `routeByHTTPUser` 与 `httpUser` / `httpPassword` 组合使用时的认证绕过问题
+- 该问题主要影响代理模式请求
+- 修复后，代理模式下认证失败会返回 `407 Proxy Authentication Required`
+
 ## 兼容性说明
 
 当前版本默认继续保持以下兼容边界：
