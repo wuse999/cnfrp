@@ -2,8 +2,8 @@
 
 ## 1. 当前下载原则
 
-- 正式压缩包下载以 GitHub Release 为准。
-- Gitee 当前主要承担仓库镜像与国内访问入口职责。
+- GitHub Release 与 Gitee Releases 当前都已可提供正式压缩包下载。
+- GitHub 仍是主发布源，Gitee 作为国内镜像发布源同步提供下载。
 - 如需源码、文档或 Issue 反馈，可分别进入 GitHub / Gitee 仓库主页。
 
 ## 2. 当前正式版本
@@ -13,6 +13,8 @@
   - <https://github.com/wuse999/cnfrp/releases/tag/v0.68.0-cnfrp.1>
 - GitHub Releases 总入口：
   - <https://github.com/wuse999/cnfrp/releases>
+- Gitee Releases 总入口：
+  - <https://gitee.com/frpnat/cnfrp/releases>
 
 ## 3. 仓库入口
 
@@ -20,6 +22,8 @@
   - <https://github.com/wuse999/cnfrp>
 - Gitee 镜像仓：
   - <https://gitee.com/frpnat/cnfrp>
+- Gitee Releases：
+  - <https://gitee.com/frpnat/cnfrp/releases>
 
 ## 4. 压缩包命名规则
 
@@ -63,4 +67,4 @@ certutil -hashfile .\cnfrp_v0.68.0-cnfrp.1_windows_amd64.zip SHA256
 
 ## 7. 一句话结论
 
-如果你只是想稳定下载和校验 `cnfrp`，请优先从 GitHub Release 页面获取压缩包，再按 `cnfrp_sha256_checksums.txt` 做完整性校验。
+如果你只是想稳定下载和校验 `cnfrp`，现在可以从 GitHub Release 或 Gitee Releases 获取同版本压缩包，再按 `cnfrp_sha256_checksums.txt` 做完整性校验。
