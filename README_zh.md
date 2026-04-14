@@ -3,6 +3,7 @@
 当前仓库默认中文主页请直接查看：
 
 - [README.md](README.md)
+- [download/README.md](download/README.md)
 
 英文入口请查看：
 

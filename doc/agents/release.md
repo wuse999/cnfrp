@@ -17,7 +17,7 @@ Current first stable target:
 
 ## 2. Update Release Notes
 
-Edit `Release.md` in the project root before each release.
+Edit `Release.md` in the project root before each release, and keep `download/README.md` aligned with the actual download entry.
 
 Recommended minimum fields:
 
@@ -36,6 +36,13 @@ Recommended minimum fields:
 ```
 
 This file is used by GoReleaser as the GitHub Release body.
+
+The download page should keep at least:
+
+- the current stable tag
+- the GitHub Release URL
+- the checksum filename
+- the package naming convention
 
 ## 3. Bump Version
 

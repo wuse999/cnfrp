@@ -53,6 +53,7 @@
 
 ### 1. 获取程序
 
+- 统一下载入口：[download/README.md](download/README.md)
 - GitHub Releases：<https://github.com/wuse999/cnfrp/releases>
 - Gitee 仓库：<https://gitee.com/frpnat/cnfrp>
 
@@ -149,18 +150,23 @@
 - 不做“去来源化”改造
 
 许可证见：[LICENSE](LICENSE)
+
+下载与校验说明见：[download/README.md](download/README.md)
+
+## 汉化界面预览
+
 - 服务端汉化界面
-![alt text](image.png)
-![alt text](image-1.png)
-![alt text](image-2.png)
-![alt text](image-3.png)
-![alt text](image-4.png)
+![服务端汉化界面 1](image.png)
+![服务端汉化界面 2](image-1.png)
+![服务端汉化界面 3](image-2.png)
+![服务端汉化界面 4](image-3.png)
+![服务端汉化界面 5](image-4.png)
 - 客户端汉化界面
-![alt text](image-5.png)
-![alt text](image-6.png)
-![alt text](image-7.png)
-![alt text](image-8.png)
-![alt text](image-9.png)
-![alt text](image-10.png)
-![alt text](image-11.png)
-![alt text](image-12.png)
+![客户端汉化界面 1](image-5.png)
+![客户端汉化界面 2](image-6.png)
+![客户端汉化界面 3](image-7.png)
+![客户端汉化界面 4](image-8.png)
+![客户端汉化界面 5](image-9.png)
+![客户端汉化界面 6](image-10.png)
+![客户端汉化界面 7](image-11.png)
+![客户端汉化界面 8](image-12.png)

@@ -87,8 +87,10 @@
 
 ## 下载与仓库入口
 
-- GitHub：<https://github.com/wuse999/cnfrp>
-- Gitee：<https://gitee.com/frpnat/cnfrp>
+- 统一下载入口：[download/README.md](download/README.md)
+- 当前正式版下载页：<https://github.com/wuse999/cnfrp/releases/tag/v0.68.0-cnfrp.1>
+- GitHub 仓库：<https://github.com/wuse999/cnfrp>
+- Gitee 镜像仓：<https://gitee.com/frpnat/cnfrp>
 
 ## 上游关系说明
 

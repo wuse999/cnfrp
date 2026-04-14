@@ -53,6 +53,7 @@ If you already use upstream `frp`, you can usually migrate to `cnfrp` without ch
 
 ### 1. Get the binaries
 
+- Unified download entry: [download/README.md](download/README.md)
 - GitHub Releases: <https://github.com/wuse999/cnfrp/releases>
 - Gitee mirror: <https://gitee.com/frpnat/cnfrp>
 
@@ -148,3 +149,5 @@ Current principles:
 - avoid any “de-attribution” style repackaging
 
 License: [LICENSE](LICENSE)
+
+Download and checksum guidance: [download/README.md](download/README.md)
