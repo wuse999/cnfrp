@@ -6,6 +6,14 @@
 
 [简体中文](README.md) | [English](README_en.md)
 
+## 入口速览
+
+- 统一下载入口：[download/README.md](download/README.md)
+- GitHub Releases：<https://github.com/wuse999/cnfrp/releases>
+- Gitee Releases：<https://gitee.com/frpnat/cnfrp/releases>
+- 官方上游：<https://github.com/fatedier/frp>
+- FRPNAT：<https://www.frpnat.com>
+
 ## 项目定位
 
 `cnfrp` 当前聚焦三件事：
@@ -55,7 +63,8 @@
 
 - 统一下载入口：[download/README.md](download/README.md)
 - GitHub Releases：<https://github.com/wuse999/cnfrp/releases>
-- Gitee 仓库：<https://gitee.com/frpnat/cnfrp>
+- Gitee Releases：<https://gitee.com/frpnat/cnfrp/releases>
+- Gitee 镜像仓：<https://gitee.com/frpnat/cnfrp>
 
 如需自行构建，请直接使用仓库源码。
 
@@ -85,6 +94,7 @@
 - GitHub 主仓：<https://github.com/wuse999/cnfrp>
 - Gitee 镜像仓：<https://gitee.com/frpnat/cnfrp>
 - 官方上游：<https://github.com/fatedier/frp>
+- 官方站点：<https://www.frpnat.com>
 
 当前建议理解方式：
 
@@ -152,6 +162,8 @@
 许可证见：[LICENSE](LICENSE)
 
 下载与校验说明见：[download/README.md](download/README.md)
+
+发布说明见：[Release.md](Release.md)
 
 ## 汉化界面预览
 

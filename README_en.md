@@ -6,6 +6,14 @@ It is not a full rewrite of the upstream core. Instead, it keeps the main compat
 
 [English](README_en.md) | [简体中文](README.md)
 
+## Quick Links
+
+- Unified download entry: [download/README.md](download/README.md)
+- GitHub Releases: <https://github.com/wuse999/cnfrp/releases>
+- Gitee Releases: <https://gitee.com/frpnat/cnfrp/releases>
+- upstream `frp`: <https://github.com/fatedier/frp>
+- FRPNAT: <https://www.frpnat.com>
+
 ## Project Scope
 
 At the current stage, `cnfrp` focuses on three things:
@@ -55,6 +63,7 @@ If you already use upstream `frp`, you can usually migrate to `cnfrp` without ch
 
 - Unified download entry: [download/README.md](download/README.md)
 - GitHub Releases: <https://github.com/wuse999/cnfrp/releases>
+- Gitee Releases: <https://gitee.com/frpnat/cnfrp/releases>
 - Gitee mirror: <https://gitee.com/frpnat/cnfrp>
 
 If you prefer to build from source, use this repository directly.
@@ -85,6 +94,7 @@ For complete feature behavior, the upstream docs site is still the best referenc
 - GitHub primary repository: <https://github.com/wuse999/cnfrp>
 - Gitee mirror repository: <https://gitee.com/frpnat/cnfrp>
 - upstream repository: <https://github.com/fatedier/frp>
+- official site: <https://www.frpnat.com>
 
 Recommended interpretation:
 
@@ -151,3 +161,5 @@ Current principles:
 License: [LICENSE](LICENSE)
 
 Download and checksum guidance: [download/README.md](download/README.md)
+
+Release notes: [Release.md](Release.md)
