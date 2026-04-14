@@ -9,11 +9,11 @@ Current `cnfrp` release strategy:
 - Release archives use the `cnfrp` package prefix
 - Binary names remain `frpc` and `frps` for compatibility
 
-Current first stable target:
+Current released stable version:
 
 - version: `v0.68.1-cnfrp.1`
 - branch: `main`
-- purpose: first stable release based on the completed Chinese UI and release-chain closure
+- purpose: upstream-sync stable release after the first Chinese UI and release-chain closure
 
 ## 2. Update Release Notes
 
@@ -74,7 +74,7 @@ At the current stage, `main` is the working release branch.
 
 ## 5. Tag the Release
 
-Recommended first stable tag:
+Recommended release tag:
 
 ```bash
 git checkout main
@@ -143,5 +143,5 @@ Compatibility rules:
 
 - Primary release repository: `git@github.com:wuse999/cnfrp.git`
 - Mirror repository: `git@gitee.com:frpnat/cnfrp.git`
-- Current next stable target: `v0.68.1-cnfrp.1`
+- Current released stable version: `v0.68.1-cnfrp.1`
 - Historical prerelease drill version: `v0.68.0-cnfrp.1-beta.1`

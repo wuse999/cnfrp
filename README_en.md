@@ -8,7 +8,10 @@ It is not a full rewrite of the upstream core. Instead, it keeps the main compat
 
 ## Quick Links
 
+- Current stable release: `v0.68.1-cnfrp.1`
 - Unified download entry: [download/README.md](download/README.md)
+- Current GitHub stable release: <https://github.com/wuse999/cnfrp/releases/tag/v0.68.1-cnfrp.1>
+- Current Gitee stable release: <https://gitee.com/frpnat/cnfrp/releases/tag/v0.68.1-cnfrp.1>
 - GitHub Releases: <https://github.com/wuse999/cnfrp/releases>
 - Gitee Releases: <https://gitee.com/frpnat/cnfrp/releases>
 - upstream `frp`: <https://github.com/fatedier/frp>
@@ -62,6 +65,8 @@ If you already use upstream `frp`, you can usually migrate to `cnfrp` without ch
 ### 1. Get the binaries
 
 - Unified download entry: [download/README.md](download/README.md)
+- Current GitHub stable release: <https://github.com/wuse999/cnfrp/releases/tag/v0.68.1-cnfrp.1>
+- Current Gitee stable release: <https://gitee.com/frpnat/cnfrp/releases/tag/v0.68.1-cnfrp.1>
 - GitHub Releases: <https://github.com/wuse999/cnfrp/releases>
 - Gitee Releases: <https://gitee.com/frpnat/cnfrp/releases>
 - Gitee mirror: <https://gitee.com/frpnat/cnfrp>
@@ -104,7 +109,7 @@ Recommended interpretation:
 
 ## Current Status
 
-The project is currently in the stage of post-localization stabilization, release cleanup, and first public release preparation.
+The project is currently in the stage of post-localization stabilization and upstream sync after the formal release of `v0.68.1-cnfrp.1`.
 
 Current main branch:
 

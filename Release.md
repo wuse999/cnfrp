@@ -1,12 +1,12 @@
-# cnfrp v0.68.1-cnfrp.1 发布说明（预备稿）
+# cnfrp v0.68.1-cnfrp.1 发布说明
 
 ## 版本信息
 
 - 项目：`cnfrp`
-- 目标正式版本：`v0.68.1-cnfrp.1`
+- 当前正式版本：`v0.68.1-cnfrp.1`
 - 发布类型：`Stable`
 - 发布分支：`main`
-- 说明：本文档用于承接 `sync/upstream-v0.68.1` 并回 `main` 后的下一版发布准备，真实 Tag 与发布时间以 Ubuntu 主工作树最终执行结果为准。
+- 说明：本文档对应已正式发布的 `v0.68.1-cnfrp.1` 版本，用于说明本轮上游同步、构建测试与正式发布结果。
 
 ## 一句话说明
 
@@ -47,10 +47,10 @@
 - 当前阶段不修改 `go.mod`、import path、配置键名和协议字段
 - 继续保持对官方 `frp v0.68.1` 基线的映射关系
 
-### 4. 发布准备
+### 4. 发布结果
 
-- 下一版目标版本切换为 `v0.68.1-cnfrp.1`
-- 压缩包命名将统一为 `cnfrp_v0.68.1-cnfrp.1_<平台>_<架构>`
+- 当前正式版本为 `v0.68.1-cnfrp.1`
+- 压缩包命名统一为 `cnfrp_v0.68.1-cnfrp.1_<平台>_<架构>`
 - 校验文件名继续使用 `cnfrp_sha256_checksums.txt`
 - 正式 Git、构建、打包、Tag 与发布继续统一在 Ubuntu 主工作树执行
 
@@ -75,7 +75,8 @@
 ## 下载与仓库入口
 
 - 统一下载入口：[download/README.md](download/README.md)
-- 当前正式稳定版下载页：<https://github.com/wuse999/cnfrp/releases/tag/v0.68.0-cnfrp.1>
+- 当前 GitHub 稳定版下载页：<https://github.com/wuse999/cnfrp/releases/tag/v0.68.1-cnfrp.1>
+- 当前 Gitee 稳定版下载页：<https://gitee.com/frpnat/cnfrp/releases/tag/v0.68.1-cnfrp.1>
 - Gitee Releases：<https://gitee.com/frpnat/cnfrp/releases>
 - GitHub 仓库：<https://github.com/wuse999/cnfrp>
 - Gitee 镜像仓：<https://gitee.com/frpnat/cnfrp>

@@ -14,9 +14,11 @@
 
 ## 2. 当前正式版本
 
-- 当前稳定版：`v0.68.0-cnfrp.1`
+- 当前稳定版：`v0.68.1-cnfrp.1`
 - GitHub Release 页面：
-  - <https://github.com/wuse999/cnfrp/releases/tag/v0.68.0-cnfrp.1>
+  - <https://github.com/wuse999/cnfrp/releases/tag/v0.68.1-cnfrp.1>
+- Gitee Release 页面：
+  - <https://gitee.com/frpnat/cnfrp/releases/tag/v0.68.1-cnfrp.1>
 - GitHub Releases 总入口：
   - <https://github.com/wuse999/cnfrp/releases>
 - Gitee Releases 总入口：
@@ -39,9 +41,9 @@
 
 发布产物统一使用以下命名风格：
 
-- `cnfrp_v0.68.0-cnfrp.1_linux_amd64.tar.gz`
-- `cnfrp_v0.68.0-cnfrp.1_windows_amd64.zip`
-- `cnfrp_v0.68.0-cnfrp.1_darwin_arm64.tar.gz`
+- `cnfrp_v0.68.1-cnfrp.1_linux_amd64.tar.gz`
+- `cnfrp_v0.68.1-cnfrp.1_windows_amd64.zip`
+- `cnfrp_v0.68.1-cnfrp.1_darwin_arm64.tar.gz`
 
 校验文件统一命名为：
 
@@ -58,13 +60,13 @@ sha256sum -c cnfrp_sha256_checksums.txt
 ### 5.2 Windows PowerShell
 
 ```powershell
-Get-FileHash .\cnfrp_v0.68.0-cnfrp.1_windows_amd64.zip -Algorithm SHA256
+Get-FileHash .\cnfrp_v0.68.1-cnfrp.1_windows_amd64.zip -Algorithm SHA256
 ```
 
 也可以使用：
 
 ```powershell
-certutil -hashfile .\cnfrp_v0.68.0-cnfrp.1_windows_amd64.zip SHA256
+certutil -hashfile .\cnfrp_v0.68.1-cnfrp.1_windows_amd64.zip SHA256
 ```
 
 请将输出结果与 `cnfrp_sha256_checksums.txt` 中对应条目逐项核对。

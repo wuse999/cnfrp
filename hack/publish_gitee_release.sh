@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# Keep this script LF-only so it can run directly on Ubuntu.
+
 set -euo pipefail
 
 OWNER="${GITEE_OWNER:-frpnat}"

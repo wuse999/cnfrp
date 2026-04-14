@@ -8,7 +8,10 @@
 
 ## 入口速览
 
+- 当前正式稳定版：`v0.68.1-cnfrp.1`
 - 统一下载入口：[download/README.md](download/README.md)
+- 当前 GitHub 稳定版：<https://github.com/wuse999/cnfrp/releases/tag/v0.68.1-cnfrp.1>
+- 当前 Gitee 稳定版：<https://gitee.com/frpnat/cnfrp/releases/tag/v0.68.1-cnfrp.1>
 - GitHub Releases：<https://github.com/wuse999/cnfrp/releases>
 - Gitee Releases：<https://gitee.com/frpnat/cnfrp/releases>
 - 官方上游：<https://github.com/fatedier/frp>
@@ -62,6 +65,8 @@
 ### 1. 获取程序
 
 - 统一下载入口：[download/README.md](download/README.md)
+- 当前 GitHub 稳定版：<https://github.com/wuse999/cnfrp/releases/tag/v0.68.1-cnfrp.1>
+- 当前 Gitee 稳定版：<https://gitee.com/frpnat/cnfrp/releases/tag/v0.68.1-cnfrp.1>
 - GitHub Releases：<https://github.com/wuse999/cnfrp/releases>
 - Gitee Releases：<https://gitee.com/frpnat/cnfrp/releases>
 - Gitee 镜像仓：<https://gitee.com/frpnat/cnfrp>
@@ -104,7 +109,7 @@
 
 ## 当前状态
 
-项目当前处于“首轮汉化完成后，继续做发布收口与稳定化”的阶段。
+项目当前处于“`v0.68.1-cnfrp.1` 已正式发布后，继续做稳定化与上游同步”的阶段。
 
 当前主线分支：
 
