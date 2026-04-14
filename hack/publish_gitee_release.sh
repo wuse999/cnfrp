@@ -4,7 +4,7 @@ set -euo pipefail
 
 OWNER="${GITEE_OWNER:-frpnat}"
 REPO="${GITEE_REPO:-cnfrp}"
-TAG="${1:-v0.68.0-cnfrp.1}"
+TAG="${1:-v0.68.1-cnfrp.1}"
 TARGET_COMMITISH="${TARGET_COMMITISH:-main}"
 PACKAGES_DIR="${PACKAGES_DIR:-release/packages}"
 BODY_FILE="${BODY_FILE:-Release.md}"

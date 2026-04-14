@@ -11,7 +11,7 @@ Current `cnfrp` release strategy:
 
 Current first stable target:
 
-- version: `v0.68.0-cnfrp.1`
+- version: `v0.68.1-cnfrp.1`
 - branch: `main`
 - purpose: first stable release based on the completed Chinese UI and release-chain closure
 
@@ -24,7 +24,7 @@ Recommended minimum fields:
 ```markdown
 ## 版本信息
 - 项目：cnfrp
-- 版本：v0.68.0-cnfrp.1
+- 版本：v0.68.1-cnfrp.1
 - 发布类型：Stable
 
 ## 本次重点
@@ -49,14 +49,14 @@ The download page should keep at least:
 Update `pkg/util/version/version.go`:
 
 ```go
-var version = "0.68.0-cnfrp.1"
+var version = "0.68.1-cnfrp.1"
 ```
 
 Commit and push to `main` after release preparation is complete:
 
 ```bash
 git add pkg/util/version/version.go Release.md .goreleaser.yml package.sh
-git commit -m "release: prepare v0.68.0-cnfrp.1"
+git commit -m "release: prepare v0.68.1-cnfrp.1"
 git push origin main
 ```
 
@@ -79,9 +79,9 @@ Recommended first stable tag:
 ```bash
 git checkout main
 git pull --ff-only origin main
-git tag -a v0.68.0-cnfrp.1 -m "release v0.68.0-cnfrp.1"
-git push origin v0.68.0-cnfrp.1
-git push gitee v0.68.0-cnfrp.1
+git tag -a v0.68.1-cnfrp.1 -m "release v0.68.1-cnfrp.1"
+git push origin v0.68.1-cnfrp.1
+git push gitee v0.68.1-cnfrp.1
 ```
 
 ## 6. Trigger GoReleaser
@@ -116,8 +116,8 @@ Gitee is a mirror, not the primary release source.
 
 Archive naming examples:
 
-- `cnfrp_v0.68.0-cnfrp.1_linux_amd64.tar.gz`
-- `cnfrp_v0.68.0-cnfrp.1_windows_amd64.zip`
+- `cnfrp_v0.68.1-cnfrp.1_linux_amd64.tar.gz`
+- `cnfrp_v0.68.1-cnfrp.1_windows_amd64.zip`
 
 Checksum file:
 
@@ -143,5 +143,5 @@ Compatibility rules:
 
 - Primary release repository: `git@github.com:wuse999/cnfrp.git`
 - Mirror repository: `git@gitee.com:frpnat/cnfrp.git`
-- Current first stable target: `v0.68.0-cnfrp.1`
+- Current next stable target: `v0.68.1-cnfrp.1`
 - Historical prerelease drill version: `v0.68.0-cnfrp.1-beta.1`
